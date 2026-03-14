@@ -491,8 +491,21 @@ const ORGS = ['Régional','KSW','PFL','ONE Championship','UFC'];
 function afficherSetup(){
   document.getElementById('ecran-intro').style.display='none';
   document.getElementById('ecran-setup').style.display='block';
+  // Clé API
   const k=localStorage.getItem('bg_api_key');
   if(k){document.getElementById('api-key').value=k;document.getElementById('se-souvenir').checked=true;}
+  // Pré-remplir depuis la sauvegarde
+  const save=charger();
+  if(save){
+    if(save.prenom)document.getElementById('prenom-input').value=save.prenom;
+    if(save.nom)document.getElementById('nom-input').value=save.nom;
+    if(save.surnom)document.getElementById('surnom-input').value=save.surnom;
+    if(save.nationalite)document.getElementById('nationalite-input').value=save.nationalite;
+    if(save.age){document.getElementById('age-slider').value=save.age;document.getElementById('age-val').textContent=save.age;}
+    if(save.poids)choisirPoids(save.poids,'');
+    if(save.style)choisirStyle(save.style);
+    if(save.mode)choisirMode(save.mode);
+  }
 }
 function choisirPoids(p,kg){
   G.poids=p;
