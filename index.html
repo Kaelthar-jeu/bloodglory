@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blood & Glory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f4f2ee;--bg2:#ffffff;--bg3:#eeebe5;--bg4:#e5e1d8;
+  --border:#d0ccc4;--border2:#b8b4ac;
+  --texte:#111111;--texte-dim:#6b6560;--texte-clair:#000000;
+  --rouge:#c01010;--rouge-vif:#e51010;--rouge-dim:#8a0a0a;
+  --noir:#111111;--gris:#444444;
+  --or:#b8960a;
+  --titre:'Bebas Neue',sans-serif;
+  --serif:'DM Serif Display',Georgia,serif;
+  --mono:'DM Mono',monospace;
+}
+html,body{height:100%;background:var(--bg);color:var(--texte);font-family:var(--serif);font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+/* ── BARRE STUDIO ── */
+.studio-bar{background:var(--noir);padding:7px 16px;text-align:center;}
+.studio-bar a{color:#888;font-size:11px;text-decoration:none;letter-spacing:3px;font-family:var(--mono);transition:color 0.2s;}
+.studio-bar a:hover{color:#fff;}
+
+/* ── ÉCRAN INTRO ── */
+#ecran-intro{
+  position:fixed;inset:0;z-index:300;background:var(--noir);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.02) 60px,rgba(255,255,255,0.02) 61px);
+}
+.intro-inner{max-width:600px;width:100%;text-align:center;}
+.intro-tag{font-family:var(--mono);font-size:10px;letter-spacing:5px;color:#666;text-transform:uppercase;margin-bottom:32px;animation:app 0.8s ease 0.1s both;}
+.intro-titre{font-family:var(--titre);font-size:clamp(80px,22vw,160px);color:#fff;line-height:0.85;letter-spacing:2px;animation:app 0.8s ease 0.2s both;}
+.intro-titre span{color:var(--rouge);display:block;}
+.intro-sep{display:flex;align-items:center;gap:16px;margin:28px 0;animation:app 0.8s ease 0.35s both;}
+.intro-sep-line{flex:1;height:1px;background:#333;}
+.intro-sep-diamond{width:6px;height:6px;background:var(--rouge);transform:rotate(45deg);flex-shrink:0;}
+.intro-accroche{font-family:var(--serif);font-size:15px;color:#aaa;font-style:italic;line-height:1.8;margin-bottom:48px;animation:app 0.8s ease 0.45s both;}
+.intro-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:app 0.8s ease 0.6s both;}
+.btn-intro-p{background:var(--rouge);border:none;color:#fff;font-family:var(--titre);font-size:18px;letter-spacing:3px;padding:14px 48px;cursor:pointer;transition:background 0.2s;text-transform:uppercase;}
+.btn-intro-p:hover{background:var(--rouge-vif);}
+.btn-intro-s{display:none;background:none;border:1px solid #444;color:#888;font-family:var(--mono);font-size:11px;letter-spacing:3px;padding:14px 24px;cursor:pointer;transition:all 0.2s;text-transform:uppercase;}
+.btn-intro-s:hover{border-color:#888;color:#fff;}
+@keyframes app{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── ÉCRAN SETUP ── */
+#ecran-setup{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px;
+}
+.setup-wrap{max-width:620px;margin:auto;padding:40px 0;}
+.setup-entete{border-bottom:3px solid var(--noir);padding-bottom:16px;margin-bottom:36px;}
+.setup-titre{font-family:var(--titre);font-size:42px;letter-spacing:2px;color:var(--texte-clair);}
+.setup-sous{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--texte-dim);text-transform:uppercase;margin-top:4px;}
+.setup-bloc{margin-bottom:28px;}
+.setup-label{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--texte-dim);display:block;margin-bottom:8px;}
+.setup-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-bottom:2px solid var(--noir);color:var(--texte-clair);font-family:var(--mono);font-size:14px;padding:11px 14px;outline:none;transition:border-color 0.2s;border-radius:0;}
+.setup-input:focus{border-bottom-color:var(--rouge);}
+.setup-input::placeholder{color:var(--border2);}
+
+/* Grilles */
+.style-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.style-carte{background:var(--bg2);border:2px solid var(--border);padding:16px;cursor:pointer;transition:all 0.2s;}
+.style-carte:hover{border-color:var(--border2);}
+.style-carte.sel{border-color:var(--noir);border-left:4px solid var(--rouge);}
+.style-nom{font-family:var(--titre);font-size:18px;letter-spacing:1px;color:var(--texte-clair);margin-bottom:3px;}
+.style-desc{font-family:var(--mono);font-size:10px;color:var(--texte-dim);line-height:1.4;}
+
+.poids-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.poids-carte{background:var(--bg2);border:2px solid var(--border);padding:10px 8px;cursor:pointer;transition:all 0.2s;text-align:center;}
+.poids-carte:hover{border-color:var(--border2);}
+.poids-carte.sel{border-color:var(--noir);background:var(--noir);color:#fff;}
+.poids-nom{font-family:var(--titre);font-size:14px;letter-spacing:1px;}
+.poids-kg{font-family:var(--mono);font-size:9px;color:var(--texte-dim);}
+.poids-carte.sel .poids-kg{color:#aaa;}
+
+/* Slider */
+.slider-wrap{display:flex;align-items:center;gap:12px;}
+.slider{flex:1;-webkit-appearance:none;height:2px;background:var(--border2);outline:none;}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--noir);cursor:pointer;border-radius:50%;}
+.slider-val{font-family:var(--titre);font-size:22px;color:var(--texte-clair);min-width:36px;}
+
+/* Mode */
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.mode-carte{background:var(--bg2);border:2px solid var(--border);padding:14px;cursor:pointer;transition:all 0.2s;text-align:center;}
+.mode-carte:hover{border-color:var(--border2);}
+.mode-carte.sel{border-color:var(--noir);border-top:3px solid var(--rouge);}
+.mode-nom{font-family:var(--titre);font-size:16px;letter-spacing:1px;color:var(--texte-clair);}
+.mode-desc{font-family:var(--mono);font-size:10px;color:var(--texte-dim);margin-top:3px;}
+
+.checkbox-wrap{display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:8px;}
+.checkbox-wrap input{accent-color:var(--rouge);cursor:pointer;}
+.checkbox-label{font-family:var(--mono);font-size:10px;color:var(--texte-dim);letter-spacing:1px;}
+
+.btn-setup{width:100%;background:var(--noir);border:none;color:#fff;font-family:var(--titre);font-size:20px;letter-spacing:4px;padding:16px;cursor:pointer;transition:background 0.2s;text-transform:uppercase;margin-top:8px;}
+.btn-setup:hover{background:#333;}
+.btn-setup:disabled{background:var(--border2);cursor:not-allowed;}
+
+/* ── REPRISE ── */
+#ecran-reprise{display:none;position:fixed;inset:0;z-index:250;background:rgba(17,17,17,0.95);align-items:center;justify-content:center;padding:20px;}
+.reprise-box{background:var(--bg2);border:3px solid var(--noir);max-width:440px;width:100%;padding:36px;}
+.reprise-titre{font-family:var(--titre);font-size:28px;letter-spacing:2px;border-bottom:2px solid var(--noir);padding-bottom:12px;margin-bottom:20px;}
+.reprise-info{margin-bottom:24px;}
+.reprise-ligne{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid var(--border);font-family:var(--mono);}
+.reprise-cle{color:var(--texte-dim);}
+.reprise-val{color:var(--texte-clair);font-weight:bold;}
+.reprise-btns{display:flex;gap:10px;}
+.reprise-btn{flex:1;padding:12px;border:none;font-family:var(--titre);font-size:14px;letter-spacing:2px;cursor:pointer;transition:all 0.2s;text-transform:uppercase;}
+.rbp{background:var(--rouge);color:#fff;}
+.rbp:hover{background:var(--rouge-vif);}
+.rbn{background:var(--bg3);color:var(--texte-dim);border:2px solid var(--border);}
+.rbn:hover{border-color:var(--noir);color:var(--texte);}
+
+/* ── APP ── */
+#app{display:flex;flex-direction:column;min-height:100vh;max-width:1200px;margin:0 auto;padding:0 16px;}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 0 12px;border-bottom:3px solid var(--noir);flex-shrink:0;}
+.logo{font-family:var(--titre);font-size:24px;letter-spacing:2px;color:var(--texte-clair);}
+.logo span{color:var(--rouge);}
+.header-droite{display:flex;align-items:center;gap:14px;}
+.org-tag{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--bg2);background:var(--noir);padding:3px 10px;text-transform:uppercase;}
+.sauv{font-family:var(--mono);font-size:10px;color:var(--texte-dim);}
+.sauv.ok{color:#2a8a2a;}
+.sauv.cours{color:var(--or);}
+
+.main{display:flex;flex:1;gap:14px;padding:14px 0;min-height:0;}
+
+/* ── PANNEAU STATS ── */
+.stats-panel{width:230px;flex-shrink:0;display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 80px);position:sticky;top:0;}
+.stat-bloc{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--noir);}
+.bloc-titre{font-family:var(--titre);font-size:13px;letter-spacing:3px;color:var(--bg2);background:var(--noir);padding:5px 12px;text-transform:uppercase;}
+.bloc-inner{padding:12px 14px;}
+.stat-ligne{display:flex;justify-content:space-between;align-items:center;padding:3px 0;}
+.stat-nom{font-family:var(--mono);font-size:10px;color:var(--texte-dim);}
+.stat-val{font-family:var(--titre);font-size:16px;color:var(--texte-clair);}
+.stat-barre-wrap{background:var(--bg3);height:3px;margin-top:2px;margin-bottom:5px;overflow:hidden;}
+.stat-barre{height:100%;background:var(--rouge);transition:width 0.4s ease;}
+.stat-barre.noire{background:var(--noir);}
+.stat-barre.verte{background:#2a8a2a;}
+.stat-barre.or{background:var(--or);}
+
+.combattant-bloc{padding:16px 14px;text-align:center;border-top:3px solid var(--rouge);}
+.comb-nom{font-family:var(--titre);font-size:26px;letter-spacing:1px;color:var(--texte-clair);}
+.comb-surnom{font-family:var(--serif);font-size:13px;font-style:italic;color:var(--rouge);margin-top:2px;}
+.comb-record{font-family:var(--titre);font-size:20px;letter-spacing:2px;margin-top:8px;}
+.comb-record span{color:var(--rouge);}
+.comb-org{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--texte-dim);margin-top:6px;text-transform:uppercase;}
+
+.cash-display{padding:14px;text-align:center;}
+.cash-montant{font-family:var(--titre);font-size:30px;color:var(--texte-clair);}
+.cash-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--texte-dim);text-transform:uppercase;}
+
+.inv-item{font-family:var(--mono);font-size:10px;color:var(--texte-dim);padding:3px 0;border-bottom:1px solid var(--border);}
+.inv-item:last-child{border-bottom:none;}
+.inv-vide{font-family:var(--mono);font-size:10px;color:var(--border2);font-style:italic;}
+
+.btn-prem{width:100%;padding:11px;background:var(--rouge);color:#fff;border:none;font-family:var(--titre);font-size:12px;letter-spacing:2px;cursor:pointer;text-transform:uppercase;transition:background 0.2s;}
+.btn-prem:hover{background:var(--rouge-vif);}
+
+/* ── PANNEAU JEU ── */
+.jeu-panel{flex:1;display:flex;flex-direction:column;min-width:0;gap:10px;}
+#recit{flex:1;background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--rouge);padding:24px;overflow-y:auto;min-height:0;}
+.entree{margin-bottom:22px;animation:fadeIn 0.35s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+.entree p{font-family:var(--serif);font-size:15px;line-height:1.9;color:var(--texte);margin-bottom:10px;}
+.action-joueur{font-family:var(--mono);font-size:11px;color:var(--texte-dim);padding:8px 14px;border-left:3px solid var(--rouge);margin-bottom:12px;background:var(--bg3);}
+
+/* Article de presse */
+.article-presse{background:var(--bg3);border:1px solid var(--border);border-top:4px solid var(--noir);padding:18px 20px;margin:12px 0;}
+.article-header{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--texte-dim);text-transform:uppercase;margin-bottom:8px;}
+.article-titre{font-family:var(--titre);font-size:22px;letter-spacing:1px;color:var(--texte-clair);margin-bottom:8px;}
+.article-corps{font-family:var(--serif);font-size:13px;line-height:1.7;color:var(--texte);}
+
+/* Interview */
+.interview-bloc{background:var(--noir);color:#fff;padding:18px 20px;margin:12px 0;}
+.interview-header{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:12px;}
+.interview-q{font-family:var(--mono);font-size:12px;color:var(--rouge);margin-bottom:4px;}
+.interview-r{font-family:var(--serif);font-size:14px;font-style:italic;color:#ddd;margin-bottom:12px;padding-left:12px;border-left:2px solid #444;}
+
+/* Corner entre rounds */
+.corner-bloc{background:var(--bg3);border:2px solid var(--noir);padding:16px 20px;margin:12px 0;}
+.corner-header{font-family:var(--titre);font-size:16px;letter-spacing:2px;border-bottom:2px solid var(--noir);padding-bottom:8px;margin-bottom:12px;}
+.corner-blessures{font-family:var(--mono);font-size:11px;color:var(--rouge);margin-bottom:8px;line-height:1.6;}
+.corner-score{font-family:var(--titre);font-size:14px;letter-spacing:1px;color:var(--texte-dim);margin-bottom:8px;}
+.corner-coach{font-family:var(--serif);font-size:13px;font-style:italic;color:var(--texte);}
+
+.maj-stats{font-family:var(--mono);font-size:11px;color:var(--or);padding:6px 10px;background:rgba(184,150,10,0.08);border-left:3px solid var(--or);margin-top:8px;letter-spacing:1px;}
+.sep{border:none;border-top:1px solid var(--border);margin:14px 0;}
+.curseur{display:inline-block;width:2px;height:14px;background:var(--rouge);animation:clign 0.7s infinite;vertical-align:text-bottom;margin-left:2px;}
+@keyframes clign{0%,50%{opacity:1;}51%,100%{opacity:0;}}
+
+/* Choix */
+.choix-bloc{background:var(--bg3);border:2px solid var(--noir);padding:14px 16px;margin-top:12px;}
+.choix-titre{font-family:var(--titre);font-size:13px;letter-spacing:3px;color:var(--texte-dim);margin-bottom:10px;text-transform:uppercase;}
+.choix-btn{display:block;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--border);border-left:3px solid transparent;color:var(--texte);font-family:var(--serif);font-size:14px;padding:11px 14px;margin-bottom:7px;cursor:pointer;transition:all 0.2s;line-height:1.5;}
+.choix-btn:hover{background:var(--noir);color:#fff;border-left-color:var(--rouge);}
+.choix-btn:last-child{margin-bottom:0;}
+
+/* Input */
+.input-zone{display:flex;gap:8px;flex-shrink:0;}
+#input-joueur{flex:1;background:var(--bg2);border:1px solid var(--border);border-bottom:2px solid var(--noir);color:var(--texte);font-family:var(--serif);font-size:14px;padding:12px 14px;resize:none;height:52px;outline:none;transition:border-color 0.2s;}
+#input-joueur:focus{border-bottom-color:var(--rouge);}
+#input-joueur::placeholder{color:var(--border2);font-style:italic;}
+#btn-envoyer{background:var(--noir);border:none;color:#fff;font-family:var(--titre);font-size:12px;letter-spacing:2px;padding:0 20px;cursor:pointer;transition:background 0.2s;flex-shrink:0;text-transform:uppercase;}
+#btn-envoyer:hover{background:#333;}
+#btn-envoyer:disabled{background:var(--border2);cursor:not-allowed;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg3);}
+::-webkit-scrollbar-thumb{background:var(--border2);}
+::-webkit-scrollbar-thumb:hover{background:var(--rouge);}
+
+/* Mobile */
+@media(max-width:700px){
+  #app{padding:0 8px;}
+  .main{flex-direction:column;gap:8px;padding:8px 0;}
+  .stats-panel{width:100%;max-height:none;position:static;flex-direction:row;flex-wrap:wrap;gap:8px;overflow:visible;}
+  .stats-panel > div{min-width:140px;flex:1;}
+  #recit{min-height:260px;max-height:48vh;padding:14px;}
+  .entree p{font-size:14px;}
+  .logo{font-size:18px;}
+  .style-grid,.poids-grid,.mode-grid{grid-template-columns:1fr 1fr;}
+  .poids-grid{grid-template-columns:repeat(4,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="studio-bar">
+  <a href="https://recitgames.vercel.app">&#9664; RÉCIT GAMES</a>
+</div>
+
+<!-- INTRO -->
+<div id="ecran-intro">
+  <div class="intro-inner">
+    <div class="intro-tag">Simulateur de carrière MMA · Roman interactif</div>
+    <div class="intro-titre">Blood<span>& Glory</span></div>
+    <div class="intro-sep">
+      <div class="intro-sep-line"></div>
+      <div class="intro-sep-diamond"></div>
+      <div class="intro-sep-line"></div>
+    </div>
+    <div class="intro-accroche">
+      Tu commences à rien.<br>
+      Tu saignes. Tu perds. Tu te relèves.<br>
+      Un jour, peut-être, tu tiens la ceinture.
+    </div>
+    <div class="intro-btns">
+      <button class="btn-intro-p" onclick="afficherSetup()">Commencer la carrière</button>
+      <button class="btn-intro-s" id="btn-reprendre-intro" onclick="clicReprendre()">Reprendre</button>
+    </div>
+  </div>
+</div>
+
+<!-- SETUP -->
+<div id="ecran-setup">
+  <div class="setup-wrap">
+    <div class="setup-entete">
+      <div class="setup-titre">Blood & Glory</div>
+      <div class="setup-sous">Création du combattant — Récit Games</div>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Clé API Anthropic</label>
+      <input class="setup-input" type="password" id="api-key" placeholder="sk-ant-api03-..." autocomplete="off"/>
+      <label class="checkbox-wrap">
+        <input type="checkbox" id="se-souvenir"/>
+        <span class="checkbox-label">Se souvenir sur cet appareil</span>
+      </label>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Prénom</label>
+      <input class="setup-input" type="text" id="prenom-input" placeholder="Prénom..." maxlength="20"/>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Nom</label>
+      <input class="setup-input" type="text" id="nom-input" placeholder="Nom de famille..." maxlength="20"/>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Surnom de combat</label>
+      <input class="setup-input" type="text" id="surnom-input" placeholder="Le surnom que la foule crie..." maxlength="25"/>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Nationalité</label>
+      <select class="setup-input" id="nationalite-input" style="cursor:pointer;">
+        <option value="Français">Français</option>
+        <option value="Américain">Américain</option>
+        <option value="Brésilien">Brésilien</option>
+        <option value="Russe">Russe</option>
+        <option value="Irlandais">Irlandais</option>
+        <option value="Japonais">Japonais</option>
+        <option value="Anglais">Anglais</option>
+        <option value="Canadien">Canadien</option>
+      </select>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Âge de départ</label>
+      <div class="slider-wrap">
+        <input type="range" class="slider" id="age-slider" min="18" max="25" value="21"/>
+        <span class="slider-val" id="age-val">21</span>
+      </div>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Catégorie de poids</label>
+      <div class="poids-grid">
+        <div class="poids-carte" onclick="choisirPoids('Coq','61kg')" id="poids-Coq"><div class="poids-nom">Coq</div><div class="poids-kg">61 kg</div></div>
+        <div class="poids-carte" onclick="choisirPoids('Plume','66kg')" id="poids-Plume"><div class="poids-nom">Plume</div><div class="poids-kg">66 kg</div></div>
+        <div class="poids-carte" onclick="choisirPoids('Léger','70kg')" id="poids-Léger"><div class="poids-nom">Léger</div><div class="poids-kg">70 kg</div></div>
+        <div class="poids-carte" onclick="choisirPoids('Welter','77kg')" id="poids-Welter"><div class="poids-nom">Welter</div><div class="poids-kg">77 kg</div></div>
+        <div class="poids-carte" onclick="choisirPoids('Moyen','84kg')" id="poids-Moyen"><div class="poids-nom">Moyen</div><div class="poids-kg">84 kg</div></div>
+        <div class="poids-carte" onclick="choisirPoids('Mi-Lourd','93kg')" id="poids-Mi-Lourd"><div class="poids-nom">Mi-Lrd</div><div class="poids-kg">93 kg</div></div>
+        <div class="poids-carte" onclick="choisirPoids('Lourd','120kg')" id="poids-Lourd"><div class="poids-nom">Lourd</div><div class="poids-kg">120 kg</div></div>
+      </div>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Style de combat</label>
+      <div class="style-grid">
+        <div class="style-carte" onclick="choisirStyle('Boxeur')" id="style-Boxeur">
+          <div class="style-nom">Boxeur</div>
+          <div class="style-desc">Debout, précis, jeu de jambes. Dangereux à distance.</div>
+        </div>
+        <div class="style-carte" onclick="choisirStyle('Lutteur')" id="style-Lutteur">
+          <div class="style-nom">Lutteur</div>
+          <div class="style-desc">Takedowns, contrôle au sol, wrestling dominant.</div>
+        </div>
+        <div class="style-carte" onclick="choisirStyle('BJJ')" id="style-BJJ">
+          <div class="style-nom">BJJ</div>
+          <div class="style-desc">Soumissions, jeu de garde, grappling technique.</div>
+        </div>
+        <div class="style-carte" onclick="choisirStyle('Muay Thai')" id="style-Muay Thai">
+          <div class="style-nom">Muay Thai</div>
+          <div class="style-desc">Coups de pied, genoux, coudes. Dévastateur en clinch.</div>
+        </div>
+        <div class="style-carte" onclick="choisirStyle('MMA complet')" id="style-MMA complet" style="grid-column:span 2;">
+          <div class="style-nom">MMA Complet</div>
+          <div class="style-desc">Polyvalent. Pas de point faible dominant. Progression plus lente.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-bloc">
+      <label class="setup-label">Mode d'interaction en combat</label>
+      <div class="mode-grid">
+        <div class="mode-carte sel" id="mode-boutons" onclick="choisirMode('boutons')">
+          <div class="mode-nom">Boutons</div>
+          <div class="mode-desc">4 choix proposés</div>
+        </div>
+        <div class="mode-carte" id="mode-libre" onclick="choisirMode('libre')">
+          <div class="mode-nom">Texte libre</div>
+          <div class="mode-desc">Tu décides</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-setup" id="btn-lancer" onclick="lancerJeu()" disabled>Monter dans la cage</button>
+    <p style="font-family:var(--mono);font-size:10px;color:var(--texte-dim);text-align:center;margin-top:12px;letter-spacing:1px;">Progression sauvegardée automatiquement</p>
+  </div>
+</div>
+
+<!-- REPRISE -->
+<div id="ecran-reprise">
+  <div class="reprise-box">
+    <div class="reprise-titre">Blood & Glory</div>
+    <div class="reprise-info" id="reprise-info"></div>
+    <div class="reprise-btns">
+      <button class="reprise-btn rbp" id="btn-continuer">Continuer</button>
+      <button class="reprise-btn rbn" id="btn-nouvelle">Nouvelle carrière</button>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <div class="logo">Blood <span>&</span> Glory</div>
+    <div class="header-droite">
+      <div class="org-tag" id="org-tag">—</div>
+      <div class="sauv" id="sauv-ind">● prêt</div>
+    </div>
+  </header>
+  <div class="main">
+    <div class="stats-panel">
+
+      <div class="stat-bloc combattant-bloc">
+        <div class="comb-nom" id="c-nom">—</div>
+        <div class="comb-surnom" id="c-surnom">—</div>
+        <div class="comb-record" id="c-record"><span>0</span>-0-0</div>
+        <div class="comb-org" id="c-org">—</div>
+      </div>
+
+      <div class="stat-bloc">
+        <div class="bloc-titre">Finances</div>
+        <div class="bloc-inner cash-display">
+          <div class="cash-montant" id="e-cash">$0</div>
+          <div class="cash-label">Compte bancaire</div>
+        </div>
+      </div>
+
+      <div class="stat-bloc">
+        <div class="bloc-titre">Combat</div>
+        <div class="bloc-inner">
+          <div class="stat-ligne"><span class="stat-nom">Frappe debout</span><span class="stat-val" id="s-frappe">50</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre noire" id="b-frappe" style="width:50%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Frappe jambes</span><span class="stat-val" id="s-jambes">40</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre noire" id="b-jambes" style="width:40%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Takedown</span><span class="stat-val" id="s-takedown">40</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre noire" id="b-takedown" style="width:40%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Défense takedown</span><span class="stat-val" id="s-dtakedown">40</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre noire" id="b-dtakedown" style="width:40%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Grappling</span><span class="stat-val" id="s-grappling">40</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre noire" id="b-grappling" style="width:40%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Soumissions</span><span class="stat-val" id="s-soumissions">40</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre noire" id="b-soumissions" style="width:40%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Chin</span><span class="stat-val" id="s-chin">60</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre rouge" id="b-chin" style="width:60%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Cardio</span><span class="stat-val" id="s-cardio">60</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre verte" id="b-cardio" style="width:60%"></div></div>
+        </div>
+      </div>
+
+      <div class="stat-bloc">
+        <div class="bloc-titre">Carrière</div>
+        <div class="bloc-inner">
+          <div class="stat-ligne"><span class="stat-nom">Réputation</span><span class="stat-val" id="s-rep">5</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre or" id="b-rep" style="width:5%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Médias</span><span class="stat-val" id="s-medias">0</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre or" id="b-medias" style="width:0%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Classement</span><span class="stat-val" id="s-classement">NR</span></div>
+          <div class="stat-ligne"><span class="stat-nom">Condition</span><span class="stat-val" id="s-condition">100</span></div>
+          <div class="stat-barre-wrap"><div class="stat-barre verte" id="b-condition" style="width:100%"></div></div>
+          <div class="stat-ligne"><span class="stat-nom">Age</span><span class="stat-val" id="s-age">21</span></div>
+        </div>
+      </div>
+
+      <div class="stat-bloc">
+        <div class="bloc-titre">Inventaire</div>
+        <div class="bloc-inner">
+          <div id="inv-liste"><div class="inv-vide">Vide</div></div>
+        </div>
+      </div>
+
+      <div class="stat-bloc" style="padding:10px 14px;">
+        <button class="btn-prem" onclick="window.location.href='https://buy.stripe.com/test_8x2bJ05fU1yV3uKde1bZe00'">
+          Premium — 7€/mois
+        </button>
+      </div>
+
+    </div>
+
+    <div class="jeu-panel">
+      <div id="recit"></div>
+      <div class="input-zone">
+        <textarea id="input-joueur" placeholder="Que fais-tu ?"></textarea>
+        <button id="btn-envoyer">Agir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const G = {
+  apiKey:'', prenom:'', nom:'', surnom:'', nationalite:'Français',
+  age:21, poids:'', style:'', mode:'boutons',
+  victoires:0, defaites:0, nuls:0,
+  organisation:'Régional', classement:'NR',
+  nbChoix:0, cash:0, inventaire:[], historique:[], saveTO:null,
+  combat:{ enCours:false, round:1, serieRound:0, totalRounds:3 },
+  stats:{
+    frappe:50, jambes:40, takedown:40, dtakedown:40,
+    grappling:40, soumissions:40, chin:60, cardio:60,
+    rep:5, medias:0, condition:100
+  }
+};
+const PAYWALL = 20;
+const ORGS = ['Régional','KSW','PFL','ONE Championship','UFC'];
+
+// ── SETUP ──
+function afficherSetup(){
+  document.getElementById('ecran-intro').style.display='none';
+  document.getElementById('ecran-setup').style.display='block';
+  const k=localStorage.getItem('bg_api_key');
+  if(k){document.getElementById('api-key').value=k;document.getElementById('se-souvenir').checked=true;}
+}
+function choisirPoids(p,kg){
+  G.poids=p;
+  document.querySelectorAll('.poids-carte').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('poids-'+p).classList.add('sel');
+  verifierSetup();
+}
+function choisirStyle(s){
+  G.style=s;
+  document.querySelectorAll('.style-carte').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('style-'+s).classList.add('sel');
+  // Initialiser stats selon style
+  if(s==='Boxeur'){Object.assign(G.stats,{frappe:65,jambes:45,takedown:35,dtakedown:55,grappling:35,soumissions:30,chin:60,cardio:60});}
+  else if(s==='Lutteur'){Object.assign(G.stats,{frappe:45,jambes:35,takedown:65,dtakedown:60,grappling:60,soumissions:45,chin:65,cardio:65});}
+  else if(s==='BJJ'){Object.assign(G.stats,{frappe:40,jambes:35,takedown:55,dtakedown:50,grappling:65,soumissions:70,chin:55,cardio:60});}
+  else if(s==='Muay Thai'){Object.assign(G.stats,{frappe:60,jambes:65,takedown:35,dtakedown:50,grappling:35,soumissions:30,chin:60,cardio:65});}
+  else{Object.assign(G.stats,{frappe:50,jambes:50,takedown:50,dtakedown:50,grappling:50,soumissions:50,chin:60,cardio:60});}
+  verifierSetup();
+}
+function choisirMode(m){
+  G.mode=m;
+  document.querySelectorAll('.mode-carte').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('mode-'+m).classList.add('sel');
+  const inp=document.getElementById('input-joueur');
+  inp.style.display=m==='boutons'?'none':'flex';
+}
+function verifierSetup(){
+  document.getElementById('btn-lancer').disabled=!(G.poids&&G.style);
+}
+document.getElementById('age-slider').addEventListener('input',function(){
+  G.age=parseInt(this.value);
+  document.getElementById('age-val').textContent=this.value;
+});
+
+function lancerJeu(){
+  const k=document.getElementById('api-key').value.trim();
+  if(!k){alert('Entre ta clé API.');return;}
+  if(!G.poids){alert('Choisis ta catégorie de poids.');return;}
+  if(!G.style){alert('Choisis ton style.');return;}
+  G.apiKey=k;
+  G.prenom=document.getElementById('prenom-input').value.trim()||'Marcus';
+  G.nom=document.getElementById('nom-input').value.trim()||'Dupont';
+  G.surnom=document.getElementById('surnom-input').value.trim()||'Le Guerrier';
+  G.nationalite=document.getElementById('nationalite-input').value;
+  G.age=parseInt(document.getElementById('age-slider').value);
+  if(document.getElementById('se-souvenir').checked)localStorage.setItem('bg_api_key',k);
+  const save=charger();
+  if(save&&save.historique&&save.historique.length>0){
+    fromSave(save);
+    document.getElementById('ecran-setup').style.display='none';
+    afficherReprise(save);return;
+  }
+  document.getElementById('ecran-setup').style.display='none';
+  if(G.mode==='boutons')document.getElementById('input-joueur').style.display='none';
+  miseAJourUI();envoyerPremier();
+}
+function clicReprendre(){
+  const save=charger();
+  if(!save){afficherSetup();return;}
+  const k=localStorage.getItem('bg_api_key');
+  if(k)G.apiKey=k;
+  document.getElementById('ecran-intro').style.display='none';
+  afficherSetup();
+}
+function afficherReprise(save){
+  const d1=new Date(save.date),d2=new Date();
+  const h=Math.floor((d2-d1)/3600000),jr=Math.floor(h/24);
+  const abs=jr>0?`${jr}j`:h>0?`${h}h`:'Récent';
+  document.getElementById('reprise-info').innerHTML=`
+    <div class="reprise-ligne"><span class="reprise-cle">Combattant</span><span class="reprise-val">${save.prenom} "${save.surnom}" ${save.nom}</span></div>
+    <div class="reprise-ligne"><span class="reprise-cle">Record</span><span class="reprise-val">${save.victoires}-${save.defaites}-${save.nuls}</span></div>
+    <div class="reprise-ligne"><span class="reprise-cle">Organisation</span><span class="reprise-val">${save.organisation}</span></div>
+    <div class="reprise-ligne"><span class="reprise-cle">Cash</span><span class="reprise-val">$${(save.cash||0).toLocaleString()}</span></div>
+    <div class="reprise-ligne"><span class="reprise-cle">Absent</span><span class="reprise-val">${abs}</span></div>`;
+  document.getElementById('ecran-reprise').style.display='flex';
+  document.getElementById('btn-continuer').onclick=()=>{
+    document.getElementById('ecran-reprise').style.display='none';
+    if(G.mode==='boutons')document.getElementById('input-joueur').style.display='none';
+    miseAJourUI();
+    envoyerMessage(`Je reprends ma carrière. Je suis ${G.prenom} "${G.surnom}" ${G.nom}, ${G.style}, record ${G.victoires}-${G.defaites}-${G.nuls}, organisation ${G.organisation}. Résume la situation et propose la suite.`);
+  };
+  document.getElementById('btn-nouvelle').onclick=()=>{
+    reinitialiser();
+    document.getElementById('ecran-reprise').style.display='none';
+    if(G.mode==='boutons')document.getElementById('input-joueur').style.display='none';
+    miseAJourUI();envoyerPremier();
+  };
+}
+
+// ── SAVE ──
+function sauvegarder(){
+  const d={prenom:G.prenom,nom:G.nom,surnom:G.surnom,nationalite:G.nationalite,
+    age:G.age,poids:G.poids,style:G.style,mode:G.mode,
+    victoires:G.victoires,defaites:G.defaites,nuls:G.nuls,
+    organisation:G.organisation,classement:G.classement,
+    nbChoix:G.nbChoix,cash:G.cash,inventaire:G.inventaire,
+    stats:G.stats,historique:G.historique.slice(-20),
+    date:new Date().toISOString()};
+  localStorage.setItem('blood_glory_save',JSON.stringify(d));
+}
+function charger(){
+  const d=localStorage.getItem('blood_glory_save');
+  if(!d)return null;try{return JSON.parse(d);}catch(e){return null;}
+}
+function fromSave(s){
+  Object.assign(G,{prenom:s.prenom,nom:s.nom,surnom:s.surnom,nationalite:s.nationalite,
+    age:s.age,poids:s.poids,style:s.style,mode:s.mode||'boutons',
+    victoires:s.victoires||0,defaites:s.defaites||0,nuls:s.nuls||0,
+    organisation:s.organisation||'Régional',classement:s.classement||'NR',
+    nbChoix:s.nbChoix||0,cash:s.cash||0,inventaire:s.inventaire||[],
+    historique:s.historique||[]});
+  if(s.stats)Object.assign(G.stats,s.stats);
+}
+function reinitialiser(){
+  G.victoires=0;G.defaites=0;G.nuls=0;G.organisation='Régional';
+  G.classement='NR';G.nbChoix=0;G.cash=0;G.inventaire=[];G.historique=[];
+  G.stats={frappe:50,jambes:40,takedown:40,dtakedown:40,grappling:40,soumissions:40,chin:60,cardio:60,rep:5,medias:0,condition:100};
+}
+function autoSave(){
+  if(G.saveTO)clearTimeout(G.saveTO);
+  setSI('cours');G.saveTO=setTimeout(()=>{sauvegarder();setSI('ok');setTimeout(()=>setSI(''),2000);},500);
+}
+function setSI(e){
+  const el=document.getElementById('sauv-ind');
+  el.className='sauv'+(e?' '+e:'');
+  el.textContent=e==='cours'?'↑ sauvegarde...':e==='ok'?'✓ sauvegardé':'● prêt';
+}
+
+// ── UI ──
+function miseAJourUI(){
+  document.getElementById('org-tag').textContent=G.organisation;
+  document.getElementById('c-nom').textContent=`${G.prenom} ${G.nom}`;
+  document.getElementById('c-surnom').textContent=`"${G.surnom}"`;
+  document.getElementById('c-record').innerHTML=`<span>${G.victoires}</span>-${G.defaites}-${G.nuls}`;
+  document.getElementById('c-org').textContent=`${G.poids} · ${G.organisation}`;
+  document.getElementById('e-cash').textContent='$'+(G.cash||0).toLocaleString();
+  const s=G.stats;
+  ['frappe','jambes','takedown','dtakedown','grappling','soumissions','chin','cardio'].forEach(k=>{
+    const el=document.getElementById('s-'+k);const bar=document.getElementById('b-'+k);
+    if(el)el.textContent=s[k];if(bar)bar.style.width=Math.min(100,s[k])+'%';
+  });
+  document.getElementById('s-rep').textContent=s.rep;document.getElementById('b-rep').style.width=Math.min(100,s.rep)+'%';
+  document.getElementById('s-medias').textContent=s.medias;document.getElementById('b-medias').style.width=Math.min(100,s.medias)+'%';
+  document.getElementById('s-classement').textContent=G.classement;
+  document.getElementById('s-condition').textContent=s.condition;
+  document.getElementById('b-condition').style.width=s.condition+'%';
+  document.getElementById('b-condition').style.background=s.condition>60?'#2a8a2a':s.condition>30?'var(--or)':'var(--rouge)';
+  document.getElementById('s-age').textContent=G.age;
+  const invEl=document.getElementById('inv-liste');
+  if(G.inventaire.length){invEl.innerHTML=G.inventaire.map(it=>`<div class="inv-item">▸ ${it}</div>`).join('');}
+  else{invEl.innerHTML='<div class="inv-vide">Vide</div>';}
+}
+
+// ── SYSTEM PROMPT ──
+function construireSP(){
+  const s=G.stats;
+  return `=== BLOOD & GLORY — CONTEUR ===
+Tu es le Conteur de Blood & Glory. Tu es un auteur, pas un assistant. Tu réponds TOUJOURS en français. Deuxième personne : "tu avances", "tu sens", "tu décides".
+
+=== VOIX LITTÉRAIRE ===
+NORMAN MAILER pour les combats : chaque coup a un sens psychologique avant d'avoir un sens physique. L'adversaire pense, calcule, cherche lui aussi. La tension avant l'échange. La douleur précise et localisée.
+F.X. TOOLE pour le coin et les entraînements : voix directe, technique, humaine. Les 60 secondes entre les rounds sont aussi importantes que le combat. Le coach parle comme un vrai coach — pas de belles phrases, des instructions courtes.
+JOYCE CAROL OATES pour les interviews et articles de presse : profondeur psychologique, nuance, le sens de ce qu'on fait.
+
+RÈGLES D'ÉCRITURE STRICTES :
+- Jamais deux phrases consécutives avec la même structure.
+- Un détail sensoriel précis par scène : pas "il saigne" mais "le sang chaud sur la pommette, l'oeil qui commence à se fermer".
+- Les coups ne se décrivent pas — on décrit ce que le combattant ressent, calcule, anticipe.
+- Mots INTERDITS : "soudain", "immédiatement", "incroyable", "impressionnant".
+- L'adversaire a toujours une psychologie — pas un obstacle, un combattant avec ses propres peurs.
+
+=== COMBATTANT ===
+${G.prenom} "${G.surnom}" ${G.nom} | ${G.nationalite} | ${G.age} ans
+Style : ${G.style} | Catégorie : ${G.poids}
+Record : ${G.victoires}V-${G.defaites}D-${G.nuls}N | Organisation : ${G.organisation}
+Classement : ${G.classement} | Cash : $${G.cash.toLocaleString()}
+Choix effectués : ${G.nbChoix}
+
+=== STATS DE COMBAT ===
+Frappe debout:${s.frappe}/100 | Frappe jambes:${s.jambes}/100
+Takedown:${s.takedown}/100 | Défense takedown:${s.dtakedown}/100
+Grappling:${s.grappling}/100 | Soumissions:${s.soumissions}/100
+Chin:${s.chin}/100 | Cardio:${s.cardio}/100
+Réputation:${s.rep}/100 | Médias:${s.medias}/100 | Condition physique:${s.condition}/100
+
+Inventaire : ${G.inventaire.length?G.inventaire.join(', '):'Vide'}
+
+=== PROGRESSION ORGANISATIONS ===
+Régional → KSW → PFL → ONE Championship → UFC
+Organisation actuelle : ${G.organisation}
+Pour progresser : accumule des victoires impressionnantes et une réputation suffisante.
+
+=== MÉCANIQUE DES COMBATS ===
+STRUCTURE : 3 rounds pour combats normaux, 5 rounds pour titres.
+PAR ROUND : 5 séries de 4 choix. Après les 5 séries → coin entre les rounds.
+
+SÉRIE DE CHOIX EN COMBAT :
+- Propose exactement 4 options variées couvrant tout l'arsenal MMA
+- Frappe debout, kicks, genoux, coudes, clinch, takedowns, grappling, soumissions, défense, déplacement
+- Exemples : jab-croisé en contre, double attaque de jambe, clinch contre la cage, sprawl sur takedown, triangle depuis la garde, étranglement arrière, coup de pied circulaire à la tête, genou volant en clinch, kimura depuis position dominante
+- JAMAIS d'indice sur le coup gagnant — système 50/50 absolu
+- L'adversaire s'adapte entre les séries
+
+FORMAT COIN ENTRE ROUNDS :
+[ COIN — ROUND X ]
+Blessures détaillées : coupures, ecchymoses, zones douloureuses, fatigue musculaire
+Score estimé du round
+Voix du coach : instructions courtes et directes
+État observé de l'adversaire
+
+RÉSULTATS POSSIBLES : KO/TKO, Soumission, Décision unanime, Décision partagée, Match nul, No Contest
+
+=== ARTICLES DE PRESSE ET INTERVIEWS ===
+Après victoire impressionnante → génère un article de presse avec format :
+[ ARTICLE ]
+Journal — Date
+Titre de l'article
+Corps de l'article (style journalistique, 3-4 paragraphes)
+[ FIN ARTICLE ]
+
+Après combat important → propose une interview avec format :
+[ INTERVIEW ]
+Journaliste — Organisation
+Q: question
+R: réponse du combattant (le joueur décide du ton)
+[ FIN INTERVIEW ]
+
+=== VIE HORS CAGE ===
+Famille, petite amie, amis — personnages récurrents qui évoluent.
+Négociation de contrats — offres avec clauses, cachets, bonus.
+Entraînements — rapports automatiques avec progression des stats.
+Cash — [ Cash +$X ] ou [ Cash -$X ] pour toute transaction.
+
+=== RÈGLES ABSOLUES ===
+JAMAIS d'indice sur le coup qui peut changer le combat.
+Les blessures ont des conséquences durables sur plusieurs scènes.
+Les défaites sont aussi bien narrées que les victoires.
+L'âge compte — après 35 ans, récupération plus lente.
+Une série de défaites peut mener au licenciement de l'organisation.
+L'IA ne protège jamais le joueur.
+
+=== FORMAT CHOIX ===
+${G.mode==='boutons'?`[ CHOIX ]
+1 — option de combat précise
+2 — option de combat précise
+3 — option de combat précise
+4 — option de combat précise`:'Termine par une question ouverte sur l\'action du combattant.'}
+
+=== MISES À JOUR STATS ===
+[ Frappe +X ] [ Cardio -X ] [ Réputation +X ] [ Cash +$X ] etc.
+[ Victoire ] ou [ Défaite ] ou [ Nul ] pour les résultats de combat.
+[ Organisation: NomOrg ] quand progression vers nouvelle organisation.
+[ Classement: #X ] quand le classement change.
+[ NomObjet ajouté à l'inventaire ] / [ NomObjet retiré de l'inventaire ]
+
+=== PAYWALL ===
+Quand nbChoix atteint ${PAYWALL} : insère [ PAYWALL ]`.trim();
+}
+
+// ── PARSING ──
+function parserReponse(texte){
+  const mises=[];
+  const stats=['frappe','jambes','takedown','dtakedown','grappling','soumissions','chin','cardio','rep','medias','condition'];
+  const noms={'frappe':'Frappe','jambes':'Jambes','takedown':'Takedown','dtakedown':'Défense TD','grappling':'Grappling','soumissions':'Soumissions','chin':'Chin','cardio':'Cardio','rep':'Réputation','medias':'Médias','condition':'Condition'};
+
+  stats.forEach(st=>{
+    const regex=new RegExp(`\\[\\s*${noms[st]||st}\\s*([+\\-])(\\d+)\\s*\\]`,'gi');
+    texte=texte.replace(regex,(_,op,v)=>{
+      const n=parseInt(v);
+      G.stats[st]=Math.max(0,Math.min(100,G.stats[st]+(op==='-'?-n:n)));
+      mises.push(`[${noms[st]||st}${op}${n}]`);return '';
+    });
+  });
+
+  // Réputation (alias)
+  texte=texte.replace(/\[\s*R[ée]putation\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{
+    const n=parseInt(v);G.stats.rep=Math.max(0,Math.min(100,G.stats.rep+(op==='-'?-n:n)));
+    mises.push(`[Rép${op}${n}]`);return '';
+  });
+
+  // Cash
+  texte=texte.replace(/\[\s*Cash\s*\+\s*\$?([\d,]+)\s*\]/gi,(_,v)=>{
+    const n=parseInt(v.replace(/,/g,''));G.cash+=n;mises.push(`[Cash +$${n.toLocaleString()}]`);return '';
+  });
+  texte=texte.replace(/\[\s*Cash\s*-\s*\$?([\d,]+)\s*\]/gi,(_,v)=>{
+    const n=parseInt(v.replace(/,/g,''));G.cash=Math.max(0,G.cash-n);mises.push(`[Cash -$${n.toLocaleString()}]`);return '';
+  });
+
+  // Record
+  texte=texte.replace(/\[\s*Victoire\s*\]/gi,()=>{G.victoires++;mises.push('[Victoire ✓]');return '';});
+  texte=texte.replace(/\[\s*D[ée]faite\s*\]/gi,()=>{G.defaites++;mises.push('[Défaite]');return '';});
+  texte=texte.replace(/\[\s*Nul\s*\]/gi,()=>{G.nuls++;mises.push('[Nul]');return '';});
+
+  // Organisation
+  texte=texte.replace(/\[\s*Organisation\s*:\s*([^\]]+)\s*\]/gi,(_,o)=>{
+    G.organisation=o.trim();mises.push(`[→ ${o.trim()}]`);return '';
+  });
+
+  // Classement
+  texte=texte.replace(/\[\s*Classement\s*:\s*([^\]]+)\s*\]/gi,(_,c)=>{
+    G.classement=c.trim();mises.push(`[#${c.trim()}]`);return '';
+  });
+
+  // Inventaire
+  texte=texte.replace(/\[\s*([^\]]+?)\s*ajoutée?s?\s*à\s*l['']inventaire\s*\]/gi,(_,it)=>{
+    const item=it.trim();if(!G.inventaire.includes(item))G.inventaire.push(item);
+    mises.push(`[${item}→inv]`);return '';
+  });
+  texte=texte.replace(/\[\s*([^\]]+?)\s*retiré[e]?\s*de\s*l['']inventaire\s*\]/gi,(_,it)=>{
+    G.inventaire=G.inventaire.filter(i=>i.toLowerCase()!==it.trim().toLowerCase());
+    mises.push(`[${it.trim()}✗]`);return '';
+  });
+
+  // Article de presse
+  texte=texte.replace(/\[\s*ARTICLE\s*\]([\s\S]*?)\[\s*FIN ARTICLE\s*\]/gi,(_,contenu)=>{
+    const lignes=contenu.trim().split('\n').filter(l=>l.trim());
+    const header=lignes[0]||'';
+    const titre=lignes[1]||'';
+    const corps=lignes.slice(2).join('\n');
+    return `<div class="article-presse"><div class="article-header">${header}</div><div class="article-titre">${titre}</div><div class="article-corps">${corps}</div></div>`;
+  });
+
+  // Interview
+  texte=texte.replace(/\[\s*INTERVIEW\s*\]([\s\S]*?)\[\s*FIN INTERVIEW\s*\]/gi,(_,contenu)=>{
+    const lignes=contenu.trim().split('\n').filter(l=>l.trim());
+    const header=lignes[0]||'';
+    let htmlInt=`<div class="interview-bloc"><div class="interview-header">${header}</div>`;
+    lignes.slice(1).forEach(l=>{
+      if(l.startsWith('Q:'))htmlInt+=`<div class="interview-q">${l}</div>`;
+      else if(l.startsWith('R:'))htmlInt+=`<div class="interview-r">${l.slice(2).trim()}</div>`;
+    });
+    htmlInt+='</div>';
+    return htmlInt;
+  });
+
+  // Coin entre rounds
+  texte=texte.replace(/\[\s*COIN\s*[—\-]\s*ROUND\s*(\d+)\s*\]([\s\S]*?)(?=\[\s*CHOIX\s*\]|$)/i,(match,round,contenu)=>{
+    return `<div class="corner-bloc"><div class="corner-header">COIN — ROUND ${round}</div><div class="corner-blessures">${contenu.trim()}</div></div>`;
+  });
+
+  // Paywall
+  if(/\[\s*PAYWALL\s*\]/i.test(texte)){
+    texte=texte.replace(/\[\s*PAYWALL\s*\]/gi,'');
+    setTimeout(declencherPaywall,600);
+  }
+
+  // Choix
+  let htmlChoix='';
+  const mChoix=texte.match(/\[\s*CHOIX\s*\]([\s\S]*?)(?=\n\n|\n\[|$)/i);
+  if(mChoix){
+    texte=texte.replace(mChoix[0],'').trim();
+    const lignes=mChoix[0].split('\n').filter(l=>/^\d[\s—\-]/.test(l.trim()));
+    if(lignes.length){
+      window._choix=lignes.map(l=>l.replace(/^\d\s*[—\-]\s*/,'').trim());
+      htmlChoix='<div class="choix-bloc"><div class="choix-titre">Que fais-tu ?</div>'+
+        window._choix.map((t,i)=>`<button class="choix-btn" onclick="envoyerChoix(${i})">${lignes[i].trim()}</button>`).join('')+
+        '</div>';
+    }
+  }
+
+  miseAJourUI();
+  const ps=texte.trim().split(/\n+/).filter(l=>l.trim()).map(l=>{
+    if(l.startsWith('<'))return l;
+    return `<p>${l.trim()}</p>`;
+  }).join('');
+  const su=mises.length?`<div class="maj-stats">${mises.join('  ')}</div>`:'';
+  return ps+su+htmlChoix;
+}
+
+// ── PAYWALL ──
+function declencherPaywall(){
+  ajouterRecit(`<div style="border:2px solid var(--rouge);padding:18px 20px;margin:8px 0;">
+    <p style="font-family:var(--titre);font-size:16px;letter-spacing:2px;color:var(--rouge);text-transform:uppercase;margin-bottom:8px;">Accès limité</p>
+    <p style="font-family:var(--serif);font-size:14px;">Tu as atteint la limite gratuite de Blood & Glory. Pour continuer ta carrière jusqu'à l'UFC, passe à l'abonnement Récit Games.</p>
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button onclick="window.location.href='https://buy.stripe.com/test_8x2bJ05fU1yV3uKde1bZe00'" style="background:var(--rouge);border:none;color:#fff;font-family:var(--titre);font-size:13px;letter-spacing:2px;padding:11px 24px;cursor:pointer;text-transform:uppercase;">S'abonner — 7€/mois</button>
+      <button onclick="saisirCode()" style="background:none;border:2px solid var(--border2);color:var(--texte-dim);font-family:var(--mono);font-size:10px;letter-spacing:2px;padding:11px 20px;cursor:pointer;text-transform:uppercase;">J'ai un code</button>
+    </div>
+  </div>`);
+  document.getElementById('btn-envoyer').disabled=true;
+  document.getElementById('input-joueur').disabled=true;
+}
+function saisirCode(){
+  const code=prompt('Entre ton code abonnement Récit Games :');
+  if(!code)return;
+  fetch('https://recitgames-api.vercel.app/api/verify-code',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({code:code.trim().toUpperCase()})
+  }).then(r=>r.json()).then(data=>{
+    if(data.valid){
+      G.nbChoix=0;
+      document.getElementById('btn-envoyer').disabled=false;
+      document.getElementById('input-joueur').disabled=false;
+      ajouterRecit('<p style="color:#2a8a2a;font-family:var(--mono);font-size:11px;letter-spacing:2px;">✓ Code validé. La carrière continue.</p>');
+    }else{alert('Code invalide.');}
+  }).catch(()=>alert('Erreur de vérification.'));
+}
+
+// ── STREAMING ──
+async function streamerMessage(msg){
+  G.historique.push({role:'user',content:msg});
+  const recit=document.getElementById('recit');
+  const entree=document.createElement('div');entree.className='entree';
+  recit.appendChild(entree);recit.scrollTop=entree.offsetTop-20;
+  const sp=document.createElement('p');entree.appendChild(sp);
+  const cur=document.createElement('span');cur.className='curseur';sp.appendChild(cur);
+  let full='';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':G.apiKey.replace(/[^\x20-\x7E]/g,'').trim(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1400,stream:true,system:construireSP(),messages:G.historique})
+    });
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Erreur ${res.status}`);}
+    const reader=res.body.getReader();const dec=new TextDecoder('utf-8',{fatal:false});
+    let buffer='';
+    while(true){
+      const{done,value}=await reader.read();if(done)break;
+      buffer+=dec.decode(value,{stream:true});
+      const lignes=buffer.split('\n');buffer=lignes.pop();
+      for(const ligne of lignes){
+        if(!ligne.startsWith('data: '))continue;
+        const d=ligne.slice(6).trim();if(d==='[DONE]')continue;
+        try{const p=JSON.parse(d);if(p.type==='content_block_delta'&&p.delta?.text){full+=p.delta.text;sp.textContent=full;sp.appendChild(cur);}}catch(e){}
+      }
+    }
+    cur.remove();
+    G.historique.push({role:'assistant',content:full});
+    if(G.historique.length>20)G.historique=G.historique.slice(-20);
+    entree.innerHTML=parserReponse(full);
+    autoSave();
+  }catch(err){
+    cur.remove();
+    entree.innerHTML=`<p style="color:var(--rouge);font-family:var(--mono);font-size:12px;">Erreur : ${err.message}</p>`;
+  }
+}
+function ajouterRecit(html){
+  const recit=document.getElementById('recit');
+  const e=document.createElement('div');e.className='entree';e.innerHTML=html;
+  recit.appendChild(e);recit.scrollTop=recit.scrollHeight;
+}
+async function envoyerMessage(msg){
+  if(!msg.trim())return;
+  const btn=document.getElementById('btn-envoyer');
+  const inp=document.getElementById('input-joueur');
+  btn.disabled=true;inp.disabled=true;
+  const recit=document.getElementById('recit');
+  if(recit.children.length>0){
+    const sep=document.createElement('div');sep.className='entree';
+    sep.innerHTML='<hr class="sep"/>';recit.appendChild(sep);
+  }
+  ajouterRecit(`<div class="action-joueur">▸ ${msg}</div>`);
+  inp.value='';G.nbChoix++;
+  await streamerMessage(msg);
+  btn.disabled=false;
+  if(G.mode!=='boutons')inp.disabled=false;
+  if(window.innerWidth>700&&G.mode!=='boutons')inp.focus();
+}
+function envoyerChoix(i){const t=window._choix&&window._choix[i];if(t)envoyerMessage(t);}
+async function envoyerPremier(){
+  miseAJourUI();
+  const msg=`Je commence Blood & Glory. Je suis ${G.prenom} "${G.surnom}" ${G.nom}, ${G.nationalite}, ${G.age} ans, ${G.poids}, style ${G.style}. Je débute ma carrière MMA dans les organisations régionales. Cash : $0. Record : 0-0-0. Lance l'introduction de la carrière et présente mon premier combat.`;
+  await streamerMessage(msg);
+}
+
+// ── EVENTS ──
+document.getElementById('btn-envoyer').addEventListener('click',()=>{envoyerMessage(document.getElementById('input-joueur').value);});
+document.getElementById('input-joueur').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();envoyerMessage(e.target.value);}});
+document.getElementById('input-joueur').style.display='none';
+
+window.addEventListener('load',()=>{
+  const save=charger();
+  if(save&&save.historique&&save.historique.length>0){
+    document.getElementById('btn-reprendre-intro').style.display='block';
+  }
+});
+</script>
+</body>
+</html>
