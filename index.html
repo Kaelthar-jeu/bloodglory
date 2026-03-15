@@ -472,7 +472,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 
 <script>
 const G = {
-  apiKey:'', prenom:'', nom:'', surnom:'', nationalite:'Français',
+  apiKey:'', prenom:'', nom:'', surnom:'', nationalite:'Français', adminMode:false,
   age:21, poids:'', style:'', mode:'boutons',
   victoires:0, defaites:0, nuls:0,
   organisation:'Régional', classement:'NR',
@@ -867,7 +867,7 @@ function parserReponse(texte){
   });
 
   // Paywall
-  if(/\[\s*PAYWALL\s*\]/i.test(texte)){
+  if(!G.adminMode&&/\[\s*PAYWALL\s*\]/i.test(texte)){
     texte=texte.replace(/\[\s*PAYWALL\s*\]/gi,'');
     setTimeout(declencherPaywall,600);
   }
@@ -916,10 +916,19 @@ function saisirCode(){
     body:JSON.stringify({code:code.trim().toUpperCase()})
   }).then(r=>r.json()).then(data=>{
     if(data.valid){
-      G.nbChoix=0;
-      document.getElementById('btn-envoyer').disabled=false;
-      document.getElementById('input-joueur').disabled=false;
-      ajouterRecit('<p style="color:#2a8a2a;font-family:var(--mono);font-size:11px;letter-spacing:2px;">✓ Code validé. La carrière continue.</p>');
+      // Si accès admin : désactiver le paywall définitivement
+      if(data.admin){
+        G.nbChoix=0;
+        G.adminMode=true;
+        document.getElementById('btn-envoyer').disabled=false;
+        document.getElementById('input-joueur').disabled=false;
+        ajouterRecit('<p style="color:#2a8a2a;font-family:var(--mono);font-size:11px;letter-spacing:2px;">✓ Accès admin activé. Aucune limite.</p>');
+      } else {
+        G.nbChoix=0;
+        document.getElementById('btn-envoyer').disabled=false;
+        document.getElementById('input-joueur').disabled=false;
+        ajouterRecit('<p style="color:#2a8a2a;font-family:var(--mono);font-size:11px;letter-spacing:2px;">✓ Code validé. La carrière continue.</p>');
+      }
     }else{alert('Code invalide.');}
   }).catch(()=>alert('Erreur de vérification.'));
 }
@@ -979,7 +988,7 @@ async function envoyerMessage(msg){
     sep.innerHTML='<hr class="sep"/>';recit.appendChild(sep);
   }
   ajouterRecit(`<div class="action-joueur">▸ ${msg}</div>`);
-  inp.value='';G.nbChoix++;
+  inp.value='';if(!G.adminMode)G.nbChoix++;
   await streamerMessage(msg);
   btn.disabled=false;
   if(G.mode!=='boutons')inp.disabled=false;
