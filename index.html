@@ -195,9 +195,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 @keyframes clign{0%,50%{opacity:1;}51%,100%{opacity:0;}}
 
 /* Choix */
-.choix-bloc{background:var(--bg3);border:2px solid var(--noir);padding:14px 16px;margin-top:12px;}
+.choix-bloc{background:var(--bg3);border:2px solid var(--noir);padding:14px 16px;margin-top:12px;pointer-events:auto;position:relative;z-index:10;}
 .choix-titre{font-family:var(--titre);font-size:13px;letter-spacing:3px;color:var(--texte-dim);margin-bottom:10px;text-transform:uppercase;}
-.choix-btn{display:block;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--border);border-left:3px solid transparent;color:var(--texte);font-family:var(--serif);font-size:14px;padding:11px 14px;margin-bottom:7px;cursor:pointer;transition:all 0.2s;line-height:1.5;}
+.choix-btn{display:block;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--border);border-left:3px solid transparent;color:var(--texte);font-family:var(--serif);font-size:14px;padding:11px 14px;margin-bottom:7px;cursor:pointer;transition:all 0.2s;line-height:1.5;pointer-events:auto;position:relative;z-index:10;}
 .choix-btn:hover{background:var(--noir);color:#fff;border-left-color:var(--rouge);}
 .choix-btn:last-child{margin-bottom:0;}
 
@@ -951,7 +951,8 @@ async function envoyerMessage(msg){
   if(!msg.trim())return;
   const btn=document.getElementById('btn-envoyer');
   const inp=document.getElementById('input-joueur');
-  btn.disabled=true;inp.disabled=true;
+  btn.disabled=true;
+  if(G.mode!=='boutons')inp.disabled=true;
   const recit=document.getElementById('recit');
   if(recit.children.length>0){
     const sep=document.createElement('div');sep.className='entree';
