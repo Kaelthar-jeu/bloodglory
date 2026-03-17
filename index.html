@@ -736,7 +736,11 @@ R: réponse du combattant (le joueur décide du ton)
 === VIE HORS CAGE ===
 Famille, petite amie, amis — personnages récurrents qui évoluent.
 Négociation de contrats — offres avec clauses, cachets, bonus.
-Entraînements — rapports automatiques avec progression des stats.
+Entraînements — rapports COURTS et directs. RÈGLE ABSOLUE :
+Un rapport d'entraînement = maximum 60 mots. Format strict :
+[ ENTRAÎNEMENT — X semaines ]
+Discipline travaillée. 1 phrase sur la progression. 1 phrase sur l'état physique. Stats mises à jour.
+INTERDIT : décrire chaque session, raconter des anecdotes, faire des paragraphes. Aller à l'essentiel.
 Cash — [ Cash +$X ] ou [ Cash -$X ] pour toute transaction.
 
 === COHÉRENCE DES ADVERSAIRES — RÈGLE ABSOLUE ===
@@ -934,6 +938,12 @@ function saisirCode(){
 }
 
 // ── STREAMING ──
+function estEntrainement(msg) {
+  const m = (msg||'').toLowerCase();
+  return m.includes('entraîn') || m.includes('entrainement') || m.includes('training')
+    || m.includes('camp d') || m.includes('semaines d') || m.includes('préparer')
+    || m.includes('prépare') || m.includes('travaille') || m.includes('sparring');
+}
 async function streamerMessage(msg){
   G.historique.push({role:'user',content:msg});
   const recit=document.getElementById('recit');
@@ -946,7 +956,7 @@ async function streamerMessage(msg){
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':G.apiKey.replace(/[^\x20-\x7E]/g,'').trim(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1400,stream:true,system:construireSP(),messages:G.historique})
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:estEntrainement(msg)?500:1400,stream:true,system:construireSP(),messages:G.historique})
     });
     if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Erreur ${res.status}`);}
     const reader=res.body.getReader();const dec=new TextDecoder('utf-8',{fatal:false});
