@@ -478,6 +478,11 @@ const G = {
   organisation:'Régional', classement:'NR',
   nbChoix:0, cash:0, inventaire:[], historique:[], saveTO:null,
   combat:{ enCours:false, round:1, serieRound:0, totalRounds:3 },
+  // Carrière étendue
+  ville:'Marseille',          // ville actuelle du combattant
+  camp:'Camp local',          // camp d'entraînement actuel
+  fatigue:0,                  // 0-100 : fatigue accumulée
+  mental:80,                  // 0-100 : état mental
   stats:{
     frappe:50, jambes:40, takedown:40, dtakedown:40,
     grappling:40, soumissions:40, chin:60, cardio:60,
@@ -585,7 +590,7 @@ function afficherReprise(save){
     document.getElementById('ecran-reprise').style.display='none';
     if(G.mode==='boutons')document.getElementById('input-joueur').style.display='none';
     miseAJourUI();
-    envoyerMessage(`Je reprends ma carrière. Je suis ${G.prenom} "${G.surnom}" ${G.nom}, ${G.style}, record ${G.victoires}-${G.defaites}-${G.nuls}, organisation ${G.organisation}. Résume la situation et propose la suite.`);
+    envoyerMessage(`REPRISE STRICTE — reprends EXACTEMENT là où on s'était arrêtés. Je suis ${G.prenom} "${G.surnom}" ${G.nom}, ${G.style}, record ${G.victoires}V-${G.defaites}D-${G.nuls}N, organisation ${G.organisation}, ville ${G.ville}, camp ${G.camp}. Cash : $${G.cash.toLocaleString()}. Fatigue : ${G.fatigue}/100. Mental : ${G.mental}/100. RÈGLE ABSOLUE : aucune progression automatique, aucun combat simulé en arrière-plan, aucun gain sans action. Reprends la même scène et propose mes options.`);
   };
   document.getElementById('btn-nouvelle').onclick=()=>{
     reinitialiser();
@@ -602,6 +607,7 @@ function sauvegarder(){
     victoires:G.victoires,defaites:G.defaites,nuls:G.nuls,
     organisation:G.organisation,classement:G.classement,
     nbChoix:G.nbChoix,cash:G.cash,inventaire:G.inventaire,
+    ville:G.ville,camp:G.camp,fatigue:G.fatigue,mental:G.mental,
     stats:G.stats,historique:G.historique.slice(-20),
     date:new Date().toISOString()};
   localStorage.setItem('blood_glory_save',JSON.stringify(d));
@@ -616,6 +622,8 @@ function fromSave(s){
     victoires:s.victoires||0,defaites:s.defaites||0,nuls:s.nuls||0,
     organisation:s.organisation||'Régional',classement:s.classement||'NR',
     nbChoix:s.nbChoix||0,cash:s.cash||0,inventaire:s.inventaire||[],
+    ville:s.ville||'Marseille',camp:s.camp||'Camp local',
+    fatigue:s.fatigue||0,mental:s.mental||80,
     historique:s.historique||[]});
   if(s.stats)Object.assign(G.stats,s.stats);
 }
@@ -733,15 +741,34 @@ Q: question
 R: réponse du combattant (le joueur décide du ton)
 [ FIN INTERVIEW ]
 
+=== SITUATION ACTUELLE ===
+Ville : ${G.ville} | Camp : ${G.camp}
+Fatigue : ${G.fatigue}/100 | Mental : ${G.mental}/100
+
+=== PROGRESSION GÉOGRAPHIQUE ===
+La carrière évolue du local vers l'international : Marseille/Lyon/Paris → Europe (KSW) → USA (Las Vegas, New York) → Asie (Singapour, Tokyo) → Monde entier (UFC).
+Les lieux sont cohérents avec l'organisation actuelle. Un combattant en Régional combat dans des salles locales françaises. Un combattant à l'UFC combat dans des arénas mondiales.
+[ Ville: NomVille ] quand le combattant déménage ou part en déplacement.
+[ Camp: NomCamp ] quand le camp d'entraînement change.
+
 === VIE HORS CAGE ===
 Famille, petite amie, amis — personnages récurrents qui évoluent.
 Négociation de contrats — offres avec clauses, cachets, bonus.
+Déménagement possible : [ Ville: NomVille ] — impact sur le réseau, le camp, les opportunités.
+Changement de camp : [ Camp: NomCamp ] — impact sur la progression des stats et les sparring partners.
+Fatigue et mental influencent les performances : [ Fatigue +X ] [ Fatigue -X ] [ Mental +X ] [ Mental -X ]
+Fatigue élevée (>70) = risque de blessure à l'entraînement, stats combat réduites.
+Mental bas (<40) = mauvaises décisions, performances en baisse, relations dégradées.
+
 Entraînements — rapports COURTS et directs. RÈGLE ABSOLUE :
 Un rapport d'entraînement = maximum 60 mots. Format strict :
 [ ENTRAÎNEMENT — X semaines ]
 Discipline travaillée. 1 phrase sur la progression. 1 phrase sur l'état physique. Stats mises à jour.
 INTERDIT : décrire chaque session, raconter des anecdotes, faire des paragraphes. Aller à l'essentiel.
 Cash — [ Cash +$X ] ou [ Cash -$X ] pour toute transaction.
+
+=== SAUVEGARDE STRICTE — RÈGLE ABSOLUE ===
+Le combattant n'évolue QUE quand le joueur joue. Aucune progression automatique. Aucun combat simulé en arrière-plan. Aucun gain ou perte sans action explicite du joueur. À la reprise, on repart EXACTEMENT de la même scène.
 
 === COHÉRENCE DES ADVERSAIRES — RÈGLE ABSOLUE ===
 Quand un adversaire est présenté pour la première fois, tu crées SA FICHE COMPLÈTE et tu t'y tiens jusqu'à la fin :
@@ -792,6 +819,26 @@ Quand nbChoix atteint ${PAYWALL} : insère [ PAYWALL ]`.trim();
 // ── PARSING ──
 function parserReponse(texte){
   const mises=[];
+
+  // Ville
+  texte=texte.replace(/\[\s*Ville\s*:\s*([^\]]+)\s*\]/gi,(_,v)=>{
+    G.ville=v.trim();mises.push(`[→${G.ville}]`);return '';
+  });
+  // Camp
+  texte=texte.replace(/\[\s*Camp\s*:\s*([^\]]+)\s*\]/gi,(_,v)=>{
+    G.camp=v.trim();mises.push(`[Camp:${G.camp}]`);return '';
+  });
+  // Fatigue
+  texte=texte.replace(/\[\s*Fatigue\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{
+    const n=parseInt(v);G.fatigue=Math.max(0,Math.min(100,G.fatigue+(op==='-'?-n:n)));
+    mises.push(`[Fatigue${op}${n}]`);return '';
+  });
+  // Mental
+  texte=texte.replace(/\[\s*Mental\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{
+    const n=parseInt(v);G.mental=Math.max(0,Math.min(100,G.mental+(op==='-'?-n:n)));
+    mises.push(`[Mental${op}${n}]`);return '';
+  });
+
   const stats=['frappe','jambes','takedown','dtakedown','grappling','soumissions','chin','cardio','rep','medias','condition'];
   const noms={'frappe':'Frappe','jambes':'Jambes','takedown':'Takedown','dtakedown':'Défense TD','grappling':'Grappling','soumissions':'Soumissions','chin':'Chin','cardio':'Cardio','rep':'Réputation','medias':'Médias','condition':'Condition'};
 
