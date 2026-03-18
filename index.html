@@ -128,10 +128,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .sauv.ok{color:#2a8a2a;}
 .sauv.cours{color:var(--or);}
 
-.main{display:flex;flex:1;gap:14px;padding:14px 0;min-height:0;}
+.main{display:block;flex:1;padding:14px 0;min-height:0;}
 
 /* ── PANNEAU STATS ── */
-.stats-panel{width:230px;flex-shrink:0;display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 80px);position:sticky;top:0;}
+.stats-panel{display:none;}
 .stat-bloc{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--noir);}
 .bloc-titre{font-family:var(--titre);font-size:13px;letter-spacing:3px;color:var(--bg2);background:var(--noir);padding:5px 12px;text-transform:uppercase;}
 .bloc-inner{padding:12px 14px;}
@@ -159,12 +159,26 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .inv-item:last-child{border-bottom:none;}
 .inv-vide{font-family:var(--mono);font-size:10px;color:var(--border2);font-style:italic;}
 
+/* Panneau déroulant Blood & Glory */
+.bg-panel-btn{background:none;border:1px solid var(--border);color:var(--texte-dim);font-family:var(--mono);font-size:9px;padding:4px 10px;cursor:pointer;transition:all 0.2s;letter-spacing:1px;text-transform:uppercase;}
+.bg-panel-btn:hover{border-color:var(--rouge-vif);color:var(--rouge);}
+#bg-panel{display:none;background:var(--bg3);border-bottom:1px solid var(--border);padding:12px 0;}
+#bg-panel.open{display:block;}
+.bg-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;}
+.bg-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--texte-dim);border-bottom:1px solid var(--border);padding-bottom:5px;margin-bottom:8px;}
+.bg-row{display:flex;justify-content:space-between;align-items:center;padding:2px 0;font-size:11px;}
+.bg-key{color:var(--texte-dim);font-family:var(--mono);}
+.bg-val{color:var(--rouge);font-family:var(--mono);font-weight:bold;}
+.bg-bar-wrap{background:var(--bg4);height:2px;margin-top:1px;margin-bottom:4px;overflow:hidden;}
+.bg-bar{height:100%;background:var(--noir);transition:width 0.4s ease;}
+@media(max-width:700px){.bg-inner{grid-template-columns:1fr 1fr;}}
+
 .btn-prem{width:100%;padding:11px;background:var(--rouge);color:#fff;border:none;font-family:var(--titre);font-size:12px;letter-spacing:2px;cursor:pointer;text-transform:uppercase;transition:background 0.2s;}
 .btn-prem:hover{background:var(--rouge-vif);}
 
 /* ── PANNEAU JEU ── */
-.jeu-panel{flex:1;display:flex;flex-direction:column;min-width:0;gap:10px;}
-#recit{flex:1;background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--rouge);padding:24px;overflow-y:auto;min-height:0;}
+.jeu-panel{flex:1;display:flex;flex-direction:column;min-width:0;}
+#recit{flex:1;background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--rouge);padding:24px;overflow-y:auto;min-height:calc(100svh - 140px);padding-bottom:85px;}
 .entree{margin-bottom:22px;animation:fadeIn 0.35s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 .entree p{font-family:var(--serif);font-size:23px;line-height:1.9;color:var(--texte);margin-bottom:10px;}
@@ -197,12 +211,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 /* Choix */
 .choix-bloc{background:var(--bg3);border:2px solid var(--noir);padding:14px 16px;margin-top:12px;pointer-events:auto;position:relative;z-index:10;}
 .choix-titre{font-family:var(--titre);font-size:13px;letter-spacing:3px;color:var(--texte-dim);margin-bottom:10px;text-transform:uppercase;}
-.choix-btn{display:block;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--border);border-left:3px solid transparent;color:var(--texte);font-family:var(--serif);font-size:14px;padding:11px 14px;margin-bottom:7px;cursor:pointer;transition:all 0.2s;line-height:1.5;pointer-events:auto;position:relative;z-index:10;}
+.choix-btn{display:block;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--border);border-left:3px solid transparent;color:var(--texte);font-family:var(--serif);font-size:18px;padding:13px 14px;margin-bottom:7px;cursor:pointer;transition:all 0.2s;line-height:1.5;pointer-events:auto;position:relative;z-index:10;}
 .choix-btn:hover{background:var(--noir);color:#fff;border-left-color:var(--rouge);}
 .choix-btn:last-child{margin-bottom:0;}
 
 /* Input */
-.input-zone{display:flex;gap:8px;flex-shrink:0;}
+.input-zone{display:flex;gap:8px;flex-shrink:0;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);padding:10px 16px;z-index:100;max-width:1200px;margin:0 auto;box-sizing:border-box;}
 #input-joueur{flex:1;background:var(--bg2);border:1px solid var(--border);border-bottom:2px solid var(--noir);color:var(--texte);font-family:var(--serif);font-size:14px;padding:12px 14px;resize:none;height:52px;outline:none;transition:border-color 0.2s;}
 #input-joueur:focus{border-bottom-color:var(--rouge);}
 #input-joueur::placeholder{color:var(--border2);font-style:italic;}
@@ -220,10 +234,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 @media(max-width:700px){
   #app{padding:0 8px;}
   .main{flex-direction:column;gap:8px;padding:8px 0;}
-  .stats-panel{width:100%;max-height:none;position:static;flex-direction:row;flex-wrap:wrap;gap:8px;overflow:visible;}
-  .stats-panel > div{min-width:140px;flex:1;}
-  #recit{min-height:260px;max-height:48vh;padding:14px;}
-  .entree p{font-size:14px;}
+  #recit{min-height:calc(100vh - 160px);padding:16px;padding-bottom:85px;}
+  .entree p{font-size:19px;line-height:1.85;}
+  .choix-btn{font-size:17px;padding:13px 12px;}
   .logo{font-size:18px;}
   .style-grid,.poids-grid,.mode-grid{grid-template-columns:1fr 1fr;}
   .poids-grid{grid-template-columns:repeat(4,1fr);}
@@ -389,8 +402,67 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
     <div class="header-droite">
       <div class="org-tag" id="org-tag">—</div>
       <div class="sauv" id="sauv-ind">● prêt</div>
+      <button class="bg-panel-btn" onclick="toggleBgPanel()">Combattant ▾</button>
     </div>
   </header>
+
+  <!-- Panneau déroulant -->
+  <div id="bg-panel">
+    <div class="bg-inner">
+
+      <div>
+        <div class="bg-title">Identité</div>
+        <div style="font-family:var(--titre);font-size:20px;color:var(--texte-clair);text-transform:uppercase;letter-spacing:1px;" id="bg-nom">—</div>
+        <div style="font-family:var(--serif);font-size:12px;font-style:italic;color:var(--texte-dim);margin-top:2px;" id="bg-surnom">—</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--rouge);margin-top:4px;" id="bg-org">—</div>
+        <div style="font-family:var(--titre);font-size:18px;color:var(--texte-clair);margin-top:6px;" id="bg-record">0-0-0</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--or);margin-top:4px;" id="bg-cash">$0</div>
+        <div class="bg-row" style="margin-top:4px;"><span class="bg-key">Âge</span><span class="bg-val" id="bg-age">21</span></div>
+        <div class="bg-row"><span class="bg-key">Classement</span><span class="bg-val" id="bg-classement">NR</span></div>
+      </div>
+
+      <div>
+        <div class="bg-title">Stats combat</div>
+        <div class="bg-row"><span class="bg-key">Frappe</span><span class="bg-val" id="bg-frappe">50</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-frappe" style="width:50%;"></div></div>
+        <div class="bg-row"><span class="bg-key">Jambes</span><span class="bg-val" id="bg-jambes">40</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-jambes" style="width:40%;"></div></div>
+        <div class="bg-row"><span class="bg-key">Takedown</span><span class="bg-val" id="bg-takedown">40</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-takedown" style="width:40%;"></div></div>
+        <div class="bg-row"><span class="bg-key">Déf. TD</span><span class="bg-val" id="bg-dtakedown">40</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-dtakedown" style="width:40%;"></div></div>
+        <div class="bg-row"><span class="bg-key">Grappling</span><span class="bg-val" id="bg-grappling">40</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-grappling" style="width:40%;"></div></div>
+        <div class="bg-row"><span class="bg-key">Soumissions</span><span class="bg-val" id="bg-soumissions">40</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-soumissions" style="width:40%;"></div></div>
+      </div>
+
+      <div>
+        <div class="bg-title">Condition</div>
+        <div class="bg-row"><span class="bg-key">Chin</span><span class="bg-val" id="bg-chin">60</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-chin" style="width:60%;background:var(--rouge);"></div></div>
+        <div class="bg-row"><span class="bg-key">Cardio</span><span class="bg-val" id="bg-cardio">60</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-cardio" style="width:60%;background:#2a8a2a;"></div></div>
+        <div class="bg-row"><span class="bg-key">Condition</span><span class="bg-val" id="bg-condition">100</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-condition" style="width:100%;background:#2a8a2a;"></div></div>
+        <div class="bg-title" style="margin-top:10px;">Carrière</div>
+        <div class="bg-row"><span class="bg-key">Réputation</span><span class="bg-val" id="bg-rep">5</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-rep" style="width:5%;background:var(--or);"></div></div>
+        <div class="bg-row"><span class="bg-key">Médias</span><span class="bg-val" id="bg-medias">0</span></div>
+        <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-medias" style="width:0%;background:var(--or);"></div></div>
+      </div>
+
+      <div>
+        <div class="bg-title">Inventaire</div>
+        <div id="bg-inventaire"><div style="font-size:11px;color:var(--texte-dim);font-style:italic;">Vide</div></div>
+        <div style="margin-top:12px;">
+          <button class="btn-prem" onclick="window.location.href='https://buy.stripe.com/test_8x2bJ05fU1yV3uKde1bZe00'">Premium — 7€/mois</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class="main">
     <div class="stats-panel">
 
@@ -643,14 +715,42 @@ function setSI(e){
 }
 
 // ── UI ──
+function toggleBgPanel(){
+  const p=document.getElementById('bg-panel');
+  const b=document.querySelector('.bg-panel-btn');
+  p.classList.toggle('open');
+  if(b)b.textContent=p.classList.contains('open')?'Combattant ▴':'Combattant ▾';
+}
+
 function miseAJourUI(){
   document.getElementById('org-tag').textContent=G.organisation;
+  // Nouveau panneau
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  const setW=(id,w,col)=>{const e=document.getElementById(id);if(e){e.style.width=Math.min(100,w)+'%';if(col)e.style.background=col;}};
+  set('bg-nom',`${G.prenom} ${G.nom}`);
+  set('bg-surnom',`"${G.surnom}"`);
+  set('bg-org',`${G.poids} · ${G.organisation}`);
+  const recEl=document.getElementById('bg-record');
+  if(recEl)recEl.innerHTML=`<span>${G.victoires}</span>-${G.defaites}-${G.nuls}`;
+  set('bg-cash','$'+(G.cash||0).toLocaleString());
+  const s=G.stats;
+  set('bg-age',G.age);
+  set('bg-classement',G.classement);
+  ['frappe','jambes','takedown','dtakedown','grappling','soumissions'].forEach(k=>{
+    set('bg-'+k,s[k]);setW('bg-b-'+k,Math.min(100,s[k]));
+  });
+  set('bg-chin',s.chin);setW('bg-b-chin',s.chin,'var(--rouge)');
+  set('bg-cardio',s.cardio);setW('bg-b-cardio',s.cardio,'#2a8a2a');
+  set('bg-condition',s.condition);setW('bg-b-condition',s.condition,s.condition>60?'#2a8a2a':s.condition>30?'var(--or)':'var(--rouge)');
+  set('bg-rep',s.rep);setW('bg-b-rep',Math.min(100,s.rep),'var(--or)');
+  set('bg-medias',s.medias);setW('bg-b-medias',Math.min(100,s.medias),'var(--or)');
+  const invBg=document.getElementById('bg-inventaire');
+  if(invBg)invBg.innerHTML=G.inventaire.length?G.inventaire.map(it=>`<div class="bg-row"><span class="bg-key">▸ ${it}</span></div>`).join(''):'<div style="font-size:11px;color:var(--texte-dim);font-style:italic;">Vide</div>';
   document.getElementById('c-nom').textContent=`${G.prenom} ${G.nom}`;
   document.getElementById('c-surnom').textContent=`"${G.surnom}"`;
   document.getElementById('c-record').innerHTML=`<span>${G.victoires}</span>-${G.defaites}-${G.nuls}`;
   document.getElementById('c-org').textContent=`${G.poids} · ${G.organisation}`;
   document.getElementById('e-cash').textContent='$'+(G.cash||0).toLocaleString();
-  const s=G.stats;
   ['frappe','jambes','takedown','dtakedown','grappling','soumissions','chin','cardio'].forEach(k=>{
     const el=document.getElementById('s-'+k);const bar=document.getElementById('b-'+k);
     if(el)el.textContent=s[k];if(bar)bar.style.width=Math.min(100,s[k])+'%';
