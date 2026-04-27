@@ -64,7 +64,6 @@ html,body{height:100%;background:var(--bg);color:var(--texte);font-family:var(--
 .setup-input:focus{border-bottom-color:var(--rouge);}
 .setup-input::placeholder{color:var(--border2);}
 
-/* Grilles */
 .style-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .style-carte{background:var(--bg2);border:2px solid var(--border);padding:16px;cursor:pointer;transition:all 0.2s;}
 .style-carte:hover{border-color:var(--border2);}
@@ -80,23 +79,17 @@ html,body{height:100%;background:var(--bg);color:var(--texte);font-family:var(--
 .poids-kg{font-family:var(--mono);font-size:9px;color:var(--texte-dim);}
 .poids-carte.sel .poids-kg{color:#aaa;}
 
-/* Slider */
 .slider-wrap{display:flex;align-items:center;gap:12px;}
 .slider{flex:1;-webkit-appearance:none;height:2px;background:var(--border2);outline:none;}
 .slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--noir);cursor:pointer;border-radius:50%;}
 .slider-val{font-family:var(--titre);font-size:22px;color:var(--texte-clair);min-width:36px;}
 
-/* Mode */
 .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .mode-carte{background:var(--bg2);border:2px solid var(--border);padding:14px;cursor:pointer;transition:all 0.2s;text-align:center;}
 .mode-carte:hover{border-color:var(--border2);}
 .mode-carte.sel{border-color:var(--noir);border-top:3px solid var(--rouge);}
 .mode-nom{font-family:var(--titre);font-size:16px;letter-spacing:1px;color:var(--texte-clair);}
 .mode-desc{font-family:var(--mono);font-size:10px;color:var(--texte-dim);margin-top:3px;}
-
-.checkbox-wrap{display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:8px;}
-.checkbox-wrap input{accent-color:var(--rouge);cursor:pointer;}
-.checkbox-label{font-family:var(--mono);font-size:10px;color:var(--texte-dim);letter-spacing:1px;}
 
 .btn-setup{width:100%;background:var(--noir);border:none;color:#fff;font-family:var(--titre);font-size:20px;letter-spacing:4px;padding:16px;cursor:pointer;transition:background 0.2s;text-transform:uppercase;margin-top:8px;}
 .btn-setup:hover{background:#333;}
@@ -159,7 +152,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .inv-item:last-child{border-bottom:none;}
 .inv-vide{font-family:var(--mono);font-size:10px;color:var(--border2);font-style:italic;}
 
-/* Panneau déroulant Blood & Glory */
+/* Panneau déroulant */
 .bg-panel-btn{background:none;border:1px solid var(--border);color:var(--texte-dim);font-family:var(--mono);font-size:9px;padding:4px 10px;cursor:pointer;transition:all 0.2s;letter-spacing:1px;text-transform:uppercase;}
 .bg-panel-btn:hover{border-color:var(--rouge-vif);color:var(--rouge);}
 #bg-panel{display:none;background:var(--bg3);border-bottom:1px solid var(--border);padding:12px 0;}
@@ -184,19 +177,16 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .entree p{font-family:var(--serif);font-size:23px;line-height:1.9;color:var(--texte);margin-bottom:10px;}
 .action-joueur{font-family:var(--mono);font-size:11px;color:var(--texte-dim);padding:8px 14px;border-left:3px solid var(--rouge);margin-bottom:12px;background:var(--bg3);}
 
-/* Article de presse */
 .article-presse{background:var(--bg3);border:1px solid var(--border);border-top:4px solid var(--noir);padding:18px 20px;margin:12px 0;}
 .article-header{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--texte-dim);text-transform:uppercase;margin-bottom:8px;}
 .article-titre{font-family:var(--titre);font-size:22px;letter-spacing:1px;color:var(--texte-clair);margin-bottom:8px;}
 .article-corps{font-family:var(--serif);font-size:13px;line-height:1.7;color:var(--texte);}
 
-/* Interview */
 .interview-bloc{background:var(--noir);color:#fff;padding:18px 20px;margin:12px 0;}
 .interview-header{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:12px;}
 .interview-q{font-family:var(--mono);font-size:12px;color:var(--rouge);margin-bottom:4px;}
 .interview-r{font-family:var(--serif);font-size:14px;font-style:italic;color:#ddd;margin-bottom:12px;padding-left:12px;border-left:2px solid #444;}
 
-/* Corner entre rounds */
 .corner-bloc{background:var(--bg3);border:2px solid var(--noir);padding:16px 20px;margin:12px 0;}
 .corner-header{font-family:var(--titre);font-size:16px;letter-spacing:2px;border-bottom:2px solid var(--noir);padding-bottom:8px;margin-bottom:12px;}
 .corner-blessures{font-family:var(--mono);font-size:11px;color:var(--rouge);margin-bottom:8px;line-height:1.6;}
@@ -208,14 +198,12 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .curseur{display:inline-block;width:2px;height:14px;background:var(--rouge);animation:clign 0.7s infinite;vertical-align:text-bottom;margin-left:2px;}
 @keyframes clign{0%,50%{opacity:1;}51%,100%{opacity:0;}}
 
-/* Choix */
 .choix-bloc{background:var(--bg3);border:2px solid var(--noir);padding:14px 16px;margin-top:12px;pointer-events:auto;position:relative;z-index:10;}
 .choix-titre{font-family:var(--titre);font-size:13px;letter-spacing:3px;color:var(--texte-dim);margin-bottom:10px;text-transform:uppercase;}
 .choix-btn{display:block;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--border);border-left:3px solid transparent;color:var(--texte);font-family:var(--serif);font-size:18px;padding:13px 14px;margin-bottom:7px;cursor:pointer;transition:all 0.2s;line-height:1.5;pointer-events:auto;position:relative;z-index:10;}
 .choix-btn:hover{background:var(--noir);color:#fff;border-left-color:var(--rouge);}
 .choix-btn:last-child{margin-bottom:0;}
 
-/* Input */
 .input-zone{display:flex;gap:8px;flex-shrink:0;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);padding:10px 16px;z-index:100;max-width:1200px;margin:0 auto;box-sizing:border-box;}
 #input-joueur{flex:1;background:var(--bg2);border:1px solid var(--border);border-bottom:2px solid var(--noir);color:var(--texte);font-family:var(--serif);font-size:14px;padding:12px 14px;resize:none;height:52px;outline:none;transition:border-color 0.2s;}
 #input-joueur:focus{border-bottom-color:var(--rouge);}
@@ -224,13 +212,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 #btn-envoyer:hover{background:#333;}
 #btn-envoyer:disabled{background:var(--border2);cursor:not-allowed;}
 
-/* Scrollbar */
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg3);}
 ::-webkit-scrollbar-thumb{background:var(--border2);}
 ::-webkit-scrollbar-thumb:hover{background:var(--rouge);}
 
-/* Mobile */
 @media(max-width:700px){
   #app{padding:0 8px;}
   .main{flex-direction:column;gap:8px;padding:8px 0;}
@@ -277,15 +263,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
     <div class="setup-entete">
       <div class="setup-titre">Blood & Glory</div>
       <div class="setup-sous">Création du combattant — Récit Games</div>
-    </div>
-
-    <div class="setup-bloc">
-      <label class="setup-label">Clé API Anthropic</label>
-      <input class="setup-input" type="password" id="api-key" placeholder="sk-ant-api03-..." autocomplete="off"/>
-      <label class="checkbox-wrap">
-        <input type="checkbox" id="se-souvenir"/>
-        <span class="checkbox-label">Se souvenir sur cet appareil</span>
-      </label>
     </div>
 
     <div class="setup-bloc">
@@ -409,7 +386,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   <!-- Panneau déroulant -->
   <div id="bg-panel">
     <div class="bg-inner">
-
       <div>
         <div class="bg-title">Identité</div>
         <div style="font-family:var(--titre);font-size:20px;color:var(--texte-clair);text-transform:uppercase;letter-spacing:1px;" id="bg-nom">—</div>
@@ -420,7 +396,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
         <div class="bg-row" style="margin-top:4px;"><span class="bg-key">Âge</span><span class="bg-val" id="bg-age">21</span></div>
         <div class="bg-row"><span class="bg-key">Classement</span><span class="bg-val" id="bg-classement">NR</span></div>
       </div>
-
       <div>
         <div class="bg-title">Stats combat</div>
         <div class="bg-row"><span class="bg-key">Frappe</span><span class="bg-val" id="bg-frappe">50</span></div>
@@ -436,7 +411,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
         <div class="bg-row"><span class="bg-key">Soumissions</span><span class="bg-val" id="bg-soumissions">40</span></div>
         <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-soumissions" style="width:40%;"></div></div>
       </div>
-
       <div>
         <div class="bg-title">Condition</div>
         <div class="bg-row"><span class="bg-key">Chin</span><span class="bg-val" id="bg-chin">60</span></div>
@@ -451,7 +425,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
         <div class="bg-row"><span class="bg-key">Médias</span><span class="bg-val" id="bg-medias">0</span></div>
         <div class="bg-bar-wrap"><div class="bg-bar" id="bg-b-medias" style="width:0%;background:var(--or);"></div></div>
       </div>
-
       <div>
         <div class="bg-title">Inventaire</div>
         <div id="bg-inventaire"><div style="font-size:11px;color:var(--texte-dim);font-style:italic;">Vide</div></div>
@@ -459,20 +432,17 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
           <button class="btn-prem" onclick="window.location.href='https://buy.stripe.com/test_8x2bJ05fU1yV3uKde1bZe00'">Premium — 7€/mois</button>
         </div>
       </div>
-
     </div>
   </div>
 
   <div class="main">
     <div class="stats-panel">
-
       <div class="stat-bloc combattant-bloc">
         <div class="comb-nom" id="c-nom">—</div>
         <div class="comb-surnom" id="c-surnom">—</div>
         <div class="comb-record" id="c-record"><span>0</span>-0-0</div>
         <div class="comb-org" id="c-org">—</div>
       </div>
-
       <div class="stat-bloc">
         <div class="bloc-titre">Finances</div>
         <div class="bloc-inner cash-display">
@@ -480,7 +450,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
           <div class="cash-label">Compte bancaire</div>
         </div>
       </div>
-
       <div class="stat-bloc">
         <div class="bloc-titre">Combat</div>
         <div class="bloc-inner">
@@ -502,7 +471,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
           <div class="stat-barre-wrap"><div class="stat-barre verte" id="b-cardio" style="width:60%"></div></div>
         </div>
       </div>
-
       <div class="stat-bloc">
         <div class="bloc-titre">Carrière</div>
         <div class="bloc-inner">
@@ -516,20 +484,15 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
           <div class="stat-ligne"><span class="stat-nom">Age</span><span class="stat-val" id="s-age">21</span></div>
         </div>
       </div>
-
       <div class="stat-bloc">
         <div class="bloc-titre">Inventaire</div>
         <div class="bloc-inner">
           <div id="inv-liste"><div class="inv-vide">Vide</div></div>
         </div>
       </div>
-
       <div class="stat-bloc" style="padding:10px 14px;">
-        <button class="btn-prem" onclick="window.location.href='https://buy.stripe.com/test_8x2bJ05fU1yV3uKde1bZe00'">
-          Premium — 7€/mois
-        </button>
+        <button class="btn-prem" onclick="window.location.href='https://buy.stripe.com/test_8x2bJ05fU1yV3uKde1bZe00'">Premium — 7€/mois</button>
       </div>
-
     </div>
 
     <div class="jeu-panel">
@@ -544,17 +507,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 
 <script>
 const G = {
-  apiKey:'', prenom:'', nom:'', surnom:'', nationalite:'Français', adminMode:false,
+  prenom:'', nom:'', surnom:'', nationalite:'Français', adminMode:false,
   age:21, poids:'', style:'', mode:'boutons',
   victoires:0, defaites:0, nuls:0,
   organisation:'Régional', classement:'NR',
   nbChoix:0, cash:0, inventaire:[], historique:[], saveTO:null,
   combat:{ enCours:false, round:1, serieRound:0, totalRounds:3 },
-  // Carrière étendue
-  ville:'Marseille',          // ville actuelle du combattant
-  camp:'Camp local',          // camp d'entraînement actuel
-  fatigue:0,                  // 0-100 : fatigue accumulée
-  mental:80,                  // 0-100 : état mental
+  ville:'Marseille', camp:'Camp local', fatigue:0, mental:80,
   stats:{
     frappe:50, jambes:40, takedown:40, dtakedown:40,
     grappling:40, soumissions:40, chin:60, cardio:60,
@@ -562,16 +521,11 @@ const G = {
   }
 };
 const PAYWALL = 20;
-const ORGS = ['Régional','KSW','PFL','ONE Championship','UFC'];
 
 // ── SETUP ──
 function afficherSetup(){
   document.getElementById('ecran-intro').style.display='none';
   document.getElementById('ecran-setup').style.display='block';
-  // Clé API
-  const k=localStorage.getItem('bg_api_key');
-  if(k){document.getElementById('api-key').value=k;document.getElementById('se-souvenir').checked=true;}
-  // Pré-remplir depuis la sauvegarde
   const save=charger();
   if(save){
     if(save.prenom)document.getElementById('prenom-input').value=save.prenom;
@@ -594,7 +548,6 @@ function choisirStyle(s){
   G.style=s;
   document.querySelectorAll('.style-carte').forEach(c=>c.classList.remove('sel'));
   document.getElementById('style-'+s).classList.add('sel');
-  // Initialiser stats selon style
   if(s==='Boxeur'){Object.assign(G.stats,{frappe:65,jambes:45,takedown:35,dtakedown:55,grappling:35,soumissions:30,chin:60,cardio:60});}
   else if(s==='Lutteur'){Object.assign(G.stats,{frappe:45,jambes:35,takedown:65,dtakedown:60,grappling:60,soumissions:45,chin:65,cardio:65});}
   else if(s==='BJJ'){Object.assign(G.stats,{frappe:40,jambes:35,takedown:55,dtakedown:50,grappling:65,soumissions:70,chin:55,cardio:60});}
@@ -618,17 +571,13 @@ document.getElementById('age-slider').addEventListener('input',function(){
 });
 
 function lancerJeu(){
-  const k=document.getElementById('api-key').value.trim();
-  if(!k){alert('Entre ta clé API.');return;}
   if(!G.poids){alert('Choisis ta catégorie de poids.');return;}
   if(!G.style){alert('Choisis ton style.');return;}
-  G.apiKey=k;
   G.prenom=document.getElementById('prenom-input').value.trim()||'Marcus';
   G.nom=document.getElementById('nom-input').value.trim()||'Dupont';
   G.surnom=document.getElementById('surnom-input').value.trim()||'Le Guerrier';
   G.nationalite=document.getElementById('nationalite-input').value;
   G.age=parseInt(document.getElementById('age-slider').value);
-  if(document.getElementById('se-souvenir').checked)localStorage.setItem('bg_api_key',k);
   const save=charger();
   if(save&&save.historique&&save.historique.length>0){
     fromSave(save);
@@ -642,8 +591,6 @@ function lancerJeu(){
 function clicReprendre(){
   const save=charger();
   if(!save){afficherSetup();return;}
-  const k=localStorage.getItem('bg_api_key');
-  if(k)G.apiKey=k;
   document.getElementById('ecran-intro').style.display='none';
   afficherSetup();
 }
@@ -724,7 +671,6 @@ function toggleBgPanel(){
 
 function miseAJourUI(){
   document.getElementById('org-tag').textContent=G.organisation;
-  // Nouveau panneau
   const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   const setW=(id,w,col)=>{const e=document.getElementById(id);if(e){e.style.width=Math.min(100,w)+'%';if(col)e.style.background=col;}};
   set('bg-nom',`${G.prenom} ${G.nom}`);
@@ -813,7 +759,6 @@ PAR ROUND : 5 séries de 4 choix. Après les 5 séries → coin entre les rounds
 SÉRIE DE CHOIX EN COMBAT :
 - Propose exactement 4 options variées couvrant tout l'arsenal MMA
 - Frappe debout, kicks, genoux, coudes, clinch, takedowns, grappling, soumissions, défense, déplacement
-- Exemples : jab-croisé en contre, double attaque de jambe, clinch contre la cage, sprawl sur takedown, triangle depuis la garde, étranglement arrière, coup de pied circulaire à la tête, genou volant en clinch, kimura depuis position dominante
 - JAMAIS d'indice sur le coup gagnant — système 50/50 absolu
 - L'adversaire s'adapte entre les séries
 
@@ -847,15 +792,13 @@ Fatigue : ${G.fatigue}/100 | Mental : ${G.mental}/100
 
 === PROGRESSION GÉOGRAPHIQUE ===
 La carrière évolue du local vers l'international : Marseille/Lyon/Paris → Europe (KSW) → USA (Las Vegas, New York) → Asie (Singapour, Tokyo) → Monde entier (UFC).
-Les lieux sont cohérents avec l'organisation actuelle. Un combattant en Régional combat dans des salles locales françaises. Un combattant à l'UFC combat dans des arénas mondiales.
+Les lieux sont cohérents avec l'organisation actuelle.
 [ Ville: NomVille ] quand le combattant déménage ou part en déplacement.
 [ Camp: NomCamp ] quand le camp d'entraînement change.
 
 === VIE HORS CAGE ===
 Famille, petite amie, amis — personnages récurrents qui évoluent.
 Négociation de contrats — offres avec clauses, cachets, bonus.
-Déménagement possible : [ Ville: NomVille ] — impact sur le réseau, le camp, les opportunités.
-Changement de camp : [ Camp: NomCamp ] — impact sur la progression des stats et les sparring partners.
 Fatigue et mental influencent les performances : [ Fatigue +X ] [ Fatigue -X ] [ Mental +X ] [ Mental -X ]
 Fatigue élevée (>70) = risque de blessure à l'entraînement, stats combat réduites.
 Mental bas (<40) = mauvaises décisions, performances en baisse, relations dégradées.
@@ -874,34 +817,11 @@ Les partenaires de sparring sont INTELLIGENTS et DANGEREUX :
 - Si le joueur cherche le takedown, le partenaire travaille sa défense et contre-attaque debout.
 - Un sparring partner qui perd l'échange corrige SA technique pour le suivant — il apprend en temps réel.
 - Le sparring est dur. Des blessures légères sont possibles. La fatigue monte.
-- Les 4 choix en sparring sont aussi précis qu'en combat réel.
-Cash — [ Cash +$X ] ou [ Cash -$X ] pour toute transaction.
-
-=== SAUVEGARDE STRICTE — RÈGLE ABSOLUE ===
-Le combattant n'évolue QUE quand le joueur joue. Aucune progression automatique. Aucun combat simulé en arrière-plan. Aucun gain ou perte sans action explicite du joueur. À la reprise, on repart EXACTEMENT de la même scène.
 
 === COHÉRENCE DES ADVERSAIRES — RÈGLE DE FER ABSOLUE ===
-
-RÈGLE N°1 — UN COMBAT = UN ADVERSAIRE JUSQU'À LA FIN :
-Quand un adversaire est annoncé pour un combat, IL EST VERROUILLÉ. Ce combattant et seulement lui sera dans la cage. Il est INTERDIT de proposer, mentionner ou suggérer un autre adversaire pendant ce combat ou ces négociations. Si le joueur est en plein combat avec Carlos Mendez, l'IA ne peut en AUCUN CAS proposer un combat contre Ivan Petrov ou quiconque d'autre.
-
-RÈGLE N°2 — FICHE FIGÉE DÈS LA CRÉATION :
-Quand un adversaire est présenté pour la première fois, sa fiche est DÉFINITIVE :
-- Nom complet et surnom
-- Nationalité et âge
-- Record EXACT : X victoires, X défaites, X nuls (jamais de notation décimale comme "2.1")
-- Style de combat
-- Organisation et classement
-
-Ce record NE CHANGE JAMAIS. Si tu as dit "12 victoires, 3 défaites" lors de la proposition du combat, tu dis exactement "12 victoires, 3 défaites" dans l'article de presse, dans l'interview, partout. AUCUNE variation.
-
-RÈGLE N°3 — ADVERSAIRE INTELLIGENT EN COMBAT :
-L'adversaire observe, analyse et s'adapte en temps réel :
-- Il mémorise les combinaisons favorites du joueur et les neutralise.
-- Si le joueur cherche la soumission, l'adversaire travaille sa défense au sol.
-- Si le joueur mise sur le striking, l'adversaire cherche le clinch ou le takedown.
-- Entre chaque série de choix, l'adversaire ajuste sa stratégie — il ne fait pas deux fois la même erreur.
-- Un adversaire blessé est dangereux et désespéré, pas plus facile à battre.
+RÈGLE N°1 — UN COMBAT = UN ADVERSAIRE JUSQU'À LA FIN.
+RÈGLE N°2 — FICHE FIGÉE DÈS LA CRÉATION : record exact, jamais de variation.
+RÈGLE N°3 — ADVERSAIRE INTELLIGENT EN COMBAT : observe, analyse, s'adapte.
 
 Format obligatoire pour présenter un adversaire :
 Nom : [Prénom Nom]
@@ -910,9 +830,9 @@ Record : [V]V - [D]D - [N]N
 Style : [Style]
 Organisation : [Org] | Classement : [#X ou NR]
 
-INTERDIT : inventer un record différent d'une scène à l'autre pour le même combattant.
-INTERDIT : utiliser une notation décimale (2.1, 5.3) pour un record — toujours V-D-N.
-INTERDIT : mentionner un autre adversaire pendant un combat ou des négociations en cours.
+INTERDIT : inventer un record différent d'une scène à l'autre.
+INTERDIT : utiliser une notation décimale pour un record.
+INTERDIT : mentionner un autre adversaire pendant un combat en cours.
 
 === RÈGLES ABSOLUES ===
 JAMAIS d'indice sur le coup qui peut changer le combat.
@@ -943,25 +863,10 @@ Quand nbChoix atteint ${PAYWALL} : insère [ PAYWALL ]`.trim();
 // ── PARSING ──
 function parserReponse(texte){
   const mises=[];
-
-  // Ville
-  texte=texte.replace(/\[\s*Ville\s*:\s*([^\]]+)\s*\]/gi,(_,v)=>{
-    G.ville=v.trim();mises.push(`[→${G.ville}]`);return '';
-  });
-  // Camp
-  texte=texte.replace(/\[\s*Camp\s*:\s*([^\]]+)\s*\]/gi,(_,v)=>{
-    G.camp=v.trim();mises.push(`[Camp:${G.camp}]`);return '';
-  });
-  // Fatigue
-  texte=texte.replace(/\[\s*Fatigue\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{
-    const n=parseInt(v);G.fatigue=Math.max(0,Math.min(100,G.fatigue+(op==='-'?-n:n)));
-    mises.push(`[Fatigue${op}${n}]`);return '';
-  });
-  // Mental
-  texte=texte.replace(/\[\s*Mental\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{
-    const n=parseInt(v);G.mental=Math.max(0,Math.min(100,G.mental+(op==='-'?-n:n)));
-    mises.push(`[Mental${op}${n}]`);return '';
-  });
+  texte=texte.replace(/\[\s*Ville\s*:\s*([^\]]+)\s*\]/gi,(_,v)=>{G.ville=v.trim();mises.push(`[→${G.ville}]`);return '';});
+  texte=texte.replace(/\[\s*Camp\s*:\s*([^\]]+)\s*\]/gi,(_,v)=>{G.camp=v.trim();mises.push(`[Camp:${G.camp}]`);return '';});
+  texte=texte.replace(/\[\s*Fatigue\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{const n=parseInt(v);G.fatigue=Math.max(0,Math.min(100,G.fatigue+(op==='-'?-n:n)));mises.push(`[Fatigue${op}${n}]`);return '';});
+  texte=texte.replace(/\[\s*Mental\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{const n=parseInt(v);G.mental=Math.max(0,Math.min(100,G.mental+(op==='-'?-n:n)));mises.push(`[Mental${op}${n}]`);return '';});
 
   const stats=['frappe','jambes','takedown','dtakedown','grappling','soumissions','chin','cardio','rep','medias','condition'];
   const noms={'frappe':'Frappe','jambes':'Jambes','takedown':'Takedown','dtakedown':'Défense TD','grappling':'Grappling','soumissions':'Soumissions','chin':'Chin','cardio':'Cardio','rep':'Réputation','medias':'Médias','condition':'Condition'};
@@ -969,61 +874,28 @@ function parserReponse(texte){
   stats.forEach(st=>{
     const regex=new RegExp(`\\[\\s*${noms[st]||st}\\s*([+\\-])(\\d+)\\s*\\]`,'gi');
     texte=texte.replace(regex,(_,op,v)=>{
-      const n=parseInt(v);
-      G.stats[st]=Math.max(0,Math.min(100,G.stats[st]+(op==='-'?-n:n)));
+      const n=parseInt(v);G.stats[st]=Math.max(0,Math.min(100,G.stats[st]+(op==='-'?-n:n)));
       mises.push(`[${noms[st]||st}${op}${n}]`);return '';
     });
   });
 
-  // Réputation (alias)
-  texte=texte.replace(/\[\s*R[ée]putation\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{
-    const n=parseInt(v);G.stats.rep=Math.max(0,Math.min(100,G.stats.rep+(op==='-'?-n:n)));
-    mises.push(`[Rép${op}${n}]`);return '';
-  });
-
-  // Cash
-  texte=texte.replace(/\[\s*Cash\s*\+\s*\$?([\d,]+)\s*\]/gi,(_,v)=>{
-    const n=parseInt(v.replace(/,/g,''));G.cash+=n;mises.push(`[Cash +$${n.toLocaleString()}]`);return '';
-  });
-  texte=texte.replace(/\[\s*Cash\s*-\s*\$?([\d,]+)\s*\]/gi,(_,v)=>{
-    const n=parseInt(v.replace(/,/g,''));G.cash=Math.max(0,G.cash-n);mises.push(`[Cash -$${n.toLocaleString()}]`);return '';
-  });
-
-  // Record
+  texte=texte.replace(/\[\s*R[ée]putation\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{const n=parseInt(v);G.stats.rep=Math.max(0,Math.min(100,G.stats.rep+(op==='-'?-n:n)));mises.push(`[Rép${op}${n}]`);return '';});
+  texte=texte.replace(/\[\s*Cash\s*\+\s*\$?([\d,]+)\s*\]/gi,(_,v)=>{const n=parseInt(v.replace(/,/g,''));G.cash+=n;mises.push(`[Cash +$${n.toLocaleString()}]`);return '';});
+  texte=texte.replace(/\[\s*Cash\s*-\s*\$?([\d,]+)\s*\]/gi,(_,v)=>{const n=parseInt(v.replace(/,/g,''));G.cash=Math.max(0,G.cash-n);mises.push(`[Cash -$${n.toLocaleString()}]`);return '';});
   texte=texte.replace(/\[\s*Victoire\s*\]/gi,()=>{G.victoires++;mises.push('[Victoire ✓]');return '';});
   texte=texte.replace(/\[\s*D[ée]faite\s*\]/gi,()=>{G.defaites++;mises.push('[Défaite]');return '';});
   texte=texte.replace(/\[\s*Nul\s*\]/gi,()=>{G.nuls++;mises.push('[Nul]');return '';});
+  texte=texte.replace(/\[\s*Organisation\s*:\s*([^\]]+)\s*\]/gi,(_,o)=>{G.organisation=o.trim();mises.push(`[→ ${o.trim()}]`);return '';});
+  texte=texte.replace(/\[\s*Classement\s*:\s*([^\]]+)\s*\]/gi,(_,c)=>{G.classement=c.trim();mises.push(`[#${c.trim()}]`);return '';});
+  texte=texte.replace(/\[\s*([^\]]+?)\s*ajoutée?s?\s*à\s*l['']inventaire\s*\]/gi,(_,it)=>{const item=it.trim();if(!G.inventaire.includes(item))G.inventaire.push(item);mises.push(`[${item}→inv]`);return '';});
+  texte=texte.replace(/\[\s*([^\]]+?)\s*retiré[e]?\s*de\s*l['']inventaire\s*\]/gi,(_,it)=>{G.inventaire=G.inventaire.filter(i=>i.toLowerCase()!==it.trim().toLowerCase());mises.push(`[${it.trim()}✗]`);return '';});
 
-  // Organisation
-  texte=texte.replace(/\[\s*Organisation\s*:\s*([^\]]+)\s*\]/gi,(_,o)=>{
-    G.organisation=o.trim();mises.push(`[→ ${o.trim()}]`);return '';
-  });
-
-  // Classement
-  texte=texte.replace(/\[\s*Classement\s*:\s*([^\]]+)\s*\]/gi,(_,c)=>{
-    G.classement=c.trim();mises.push(`[#${c.trim()}]`);return '';
-  });
-
-  // Inventaire
-  texte=texte.replace(/\[\s*([^\]]+?)\s*ajoutée?s?\s*à\s*l['']inventaire\s*\]/gi,(_,it)=>{
-    const item=it.trim();if(!G.inventaire.includes(item))G.inventaire.push(item);
-    mises.push(`[${item}→inv]`);return '';
-  });
-  texte=texte.replace(/\[\s*([^\]]+?)\s*retiré[e]?\s*de\s*l['']inventaire\s*\]/gi,(_,it)=>{
-    G.inventaire=G.inventaire.filter(i=>i.toLowerCase()!==it.trim().toLowerCase());
-    mises.push(`[${it.trim()}✗]`);return '';
-  });
-
-  // Article de presse
   texte=texte.replace(/\[\s*ARTICLE\s*\]([\s\S]*?)\[\s*FIN ARTICLE\s*\]/gi,(_,contenu)=>{
     const lignes=contenu.trim().split('\n').filter(l=>l.trim());
-    const header=lignes[0]||'';
-    const titre=lignes[1]||'';
-    const corps=lignes.slice(2).join('\n');
+    const header=lignes[0]||'';const titre=lignes[1]||'';const corps=lignes.slice(2).join('\n');
     return `<div class="article-presse"><div class="article-header">${header}</div><div class="article-titre">${titre}</div><div class="article-corps">${corps}</div></div>`;
   });
 
-  // Interview
   texte=texte.replace(/\[\s*INTERVIEW\s*\]([\s\S]*?)\[\s*FIN INTERVIEW\s*\]/gi,(_,contenu)=>{
     const lignes=contenu.trim().split('\n').filter(l=>l.trim());
     const header=lignes[0]||'';
@@ -1032,22 +904,18 @@ function parserReponse(texte){
       if(l.startsWith('Q:'))htmlInt+=`<div class="interview-q">${l}</div>`;
       else if(l.startsWith('R:'))htmlInt+=`<div class="interview-r">${l.slice(2).trim()}</div>`;
     });
-    htmlInt+='</div>';
-    return htmlInt;
+    htmlInt+='</div>';return htmlInt;
   });
 
-  // Coin entre rounds
   texte=texte.replace(/\[\s*COIN\s*[—\-]\s*ROUND\s*(\d+)\s*\]([\s\S]*?)(?=\[\s*CHOIX\s*\]|$)/i,(match,round,contenu)=>{
     return `<div class="corner-bloc"><div class="corner-header">COIN — ROUND ${round}</div><div class="corner-blessures">${contenu.trim()}</div></div>`;
   });
 
-  // Paywall
   if(!G.adminMode&&/\[\s*PAYWALL\s*\]/i.test(texte)){
     texte=texte.replace(/\[\s*PAYWALL\s*\]/gi,'');
     setTimeout(declencherPaywall,600);
   }
 
-  // Choix
   let htmlChoix='';
   const mChoix=texte.match(/\[\s*CHOIX\s*\]([\s\S]*?)(?=\n\n|\n\[|$)/i);
   if(mChoix){
@@ -1091,30 +959,21 @@ function saisirCode(){
     body:JSON.stringify({code:code.trim().toUpperCase()})
   }).then(r=>r.json()).then(data=>{
     if(data.valid){
-      // Si accès admin : désactiver le paywall définitivement
-      if(data.admin){
-        G.nbChoix=0;
-        G.adminMode=true;
-        document.getElementById('btn-envoyer').disabled=false;
-        document.getElementById('input-joueur').disabled=false;
-        ajouterRecit('<p style="color:#2a8a2a;font-family:var(--mono);font-size:11px;letter-spacing:2px;">✓ Accès admin activé. Aucune limite.</p>');
-      } else {
-        G.nbChoix=0;
-        document.getElementById('btn-envoyer').disabled=false;
-        document.getElementById('input-joueur').disabled=false;
-        ajouterRecit('<p style="color:#2a8a2a;font-family:var(--mono);font-size:11px;letter-spacing:2px;">✓ Code validé. La carrière continue.</p>');
-      }
+      G.nbChoix=0;
+      if(data.admin)G.adminMode=true;
+      document.getElementById('btn-envoyer').disabled=false;
+      document.getElementById('input-joueur').disabled=false;
+      ajouterRecit(`<p style="color:#2a8a2a;font-family:var(--mono);font-size:11px;letter-spacing:2px;">✓ ${data.admin?'Accès admin activé. Aucune limite.':'Code validé. La carrière continue.'}</p>`);
     }else{alert('Code invalide.');}
   }).catch(()=>alert('Erreur de vérification.'));
 }
 
-// ── STREAMING ──
-function estEntrainement(msg) {
-  const m = (msg||'').toLowerCase();
-  return m.includes('entraîn') || m.includes('entrainement') || m.includes('training')
-    || m.includes('camp d') || m.includes('semaines d') || m.includes('préparer')
-    || m.includes('prépare') || m.includes('travaille') || m.includes('sparring');
+// ── STREAMING via proxy Vercel ──
+function estEntrainement(msg){
+  const m=(msg||'').toLowerCase();
+  return m.includes('entraîn')||m.includes('entrainement')||m.includes('training')||m.includes('camp d')||m.includes('semaines d')||m.includes('préparer')||m.includes('prépare')||m.includes('travaille')||m.includes('sparring');
 }
+
 async function streamerMessage(msg){
   G.historique.push({role:'user',content:msg});
   const recit=document.getElementById('recit');
@@ -1124,12 +983,16 @@ async function streamerMessage(msg){
   const cur=document.createElement('span');cur.className='curseur';sp.appendChild(cur);
   let full='';
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('/api/chat',{
       method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':G.apiKey.replace(/[^\x20-\x7E]/g,'').trim(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:estEntrainement(msg)?500:1400,stream:true,system:construireSP(),messages:G.historique})
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        system:construireSP(),
+        messages:G.historique,
+        max_tokens:estEntrainement(msg)?500:1400
+      })
     });
-    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`Erreur ${res.status}`);}
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error||`Erreur ${res.status}`);}
     const reader=res.body.getReader();const dec=new TextDecoder('utf-8',{fatal:false});
     let buffer='';
     while(true){
@@ -1152,6 +1015,7 @@ async function streamerMessage(msg){
     entree.innerHTML=`<p style="color:var(--rouge);font-family:var(--mono);font-size:12px;">Erreur : ${err.message}</p>`;
   }
 }
+
 function ajouterRecit(html){
   const recit=document.getElementById('recit');
   const e=document.createElement('div');e.className='entree';e.innerHTML=html;
@@ -1196,3 +1060,4 @@ window.addEventListener('load',()=>{
 </script>
 </body>
 </html>
+
