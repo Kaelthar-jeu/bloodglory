@@ -21,19 +21,10 @@
   --mono:'DM Mono',monospace;
 }
 html,body{height:100%;background:var(--bg);color:var(--texte);font-family:var(--serif);font-size:16px;line-height:1.7;overflow-x:hidden;}
-
-/* ── BARRE STUDIO ── */
 .studio-bar{background:var(--noir);padding:7px 16px;text-align:center;}
 .studio-bar a{color:#888;font-size:11px;text-decoration:none;letter-spacing:3px;font-family:var(--mono);transition:color 0.2s;}
 .studio-bar a:hover{color:#fff;}
-
-/* ── ÉCRAN INTRO ── */
-#ecran-intro{
-  position:fixed;inset:0;z-index:300;background:var(--noir);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:24px;
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.02) 60px,rgba(255,255,255,0.02) 61px);
-}
+#ecran-intro{position:fixed;inset:0;z-index:300;background:var(--noir);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.02) 60px,rgba(255,255,255,0.02) 61px);}
 .intro-inner{max-width:600px;width:100%;text-align:center;}
 .intro-tag{font-family:var(--mono);font-size:10px;letter-spacing:5px;color:#666;text-transform:uppercase;margin-bottom:32px;animation:app 0.8s ease 0.1s both;}
 .intro-titre{font-family:var(--titre);font-size:clamp(80px,22vw,160px);color:#fff;line-height:0.85;letter-spacing:2px;animation:app 0.8s ease 0.2s both;}
@@ -48,12 +39,7 @@ html,body{height:100%;background:var(--bg);color:var(--texte);font-family:var(--
 .btn-intro-s{display:none;background:none;border:1px solid #444;color:#888;font-family:var(--mono);font-size:11px;letter-spacing:3px;padding:14px 24px;cursor:pointer;transition:all 0.2s;text-transform:uppercase;}
 .btn-intro-s:hover{border-color:#888;color:#fff;}
 @keyframes app{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-
-/* ── ÉCRAN SETUP ── */
-#ecran-setup{
-  display:none;position:fixed;inset:0;z-index:200;
-  background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px;
-}
+#ecran-setup{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px;}
 .setup-wrap{max-width:620px;margin:auto;padding:40px 0;}
 .setup-entete{border-bottom:3px solid var(--noir);padding-bottom:16px;margin-bottom:36px;}
 .setup-titre{font-family:var(--titre);font-size:42px;letter-spacing:2px;color:var(--texte-clair);}
@@ -63,14 +49,12 @@ html,body{height:100%;background:var(--bg);color:var(--texte);font-family:var(--
 .setup-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-bottom:2px solid var(--noir);color:var(--texte-clair);font-family:var(--mono);font-size:14px;padding:11px 14px;outline:none;transition:border-color 0.2s;border-radius:0;}
 .setup-input:focus{border-bottom-color:var(--rouge);}
 .setup-input::placeholder{color:var(--border2);}
-
 .style-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .style-carte{background:var(--bg2);border:2px solid var(--border);padding:16px;cursor:pointer;transition:all 0.2s;}
 .style-carte:hover{border-color:var(--border2);}
 .style-carte.sel{border-color:var(--noir);border-left:4px solid var(--rouge);}
 .style-nom{font-family:var(--titre);font-size:18px;letter-spacing:1px;color:var(--texte-clair);margin-bottom:3px;}
 .style-desc{font-family:var(--mono);font-size:10px;color:var(--texte-dim);line-height:1.4;}
-
 .poids-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
 .poids-carte{background:var(--bg2);border:2px solid var(--border);padding:10px 8px;cursor:pointer;transition:all 0.2s;text-align:center;}
 .poids-carte:hover{border-color:var(--border2);}
@@ -78,24 +62,19 @@ html,body{height:100%;background:var(--bg);color:var(--texte);font-family:var(--
 .poids-nom{font-family:var(--titre);font-size:14px;letter-spacing:1px;}
 .poids-kg{font-family:var(--mono);font-size:9px;color:var(--texte-dim);}
 .poids-carte.sel .poids-kg{color:#aaa;}
-
 .slider-wrap{display:flex;align-items:center;gap:12px;}
 .slider{flex:1;-webkit-appearance:none;height:2px;background:var(--border2);outline:none;}
 .slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--noir);cursor:pointer;border-radius:50%;}
 .slider-val{font-family:var(--titre);font-size:22px;color:var(--texte-clair);min-width:36px;}
-
 .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .mode-carte{background:var(--bg2);border:2px solid var(--border);padding:14px;cursor:pointer;transition:all 0.2s;text-align:center;}
 .mode-carte:hover{border-color:var(--border2);}
 .mode-carte.sel{border-color:var(--noir);border-top:3px solid var(--rouge);}
 .mode-nom{font-family:var(--titre);font-size:16px;letter-spacing:1px;color:var(--texte-clair);}
 .mode-desc{font-family:var(--mono);font-size:10px;color:var(--texte-dim);margin-top:3px;}
-
 .btn-setup{width:100%;background:var(--noir);border:none;color:#fff;font-family:var(--titre);font-size:20px;letter-spacing:4px;padding:16px;cursor:pointer;transition:background 0.2s;text-transform:uppercase;margin-top:8px;}
 .btn-setup:hover{background:#333;}
 .btn-setup:disabled{background:var(--border2);cursor:not-allowed;}
-
-/* ── REPRISE ── */
 #ecran-reprise{display:none;position:fixed;inset:0;z-index:250;background:rgba(17,17,17,0.95);align-items:center;justify-content:center;padding:20px;}
 .reprise-box{background:var(--bg2);border:3px solid var(--noir);max-width:440px;width:100%;padding:36px;}
 .reprise-titre{font-family:var(--titre);font-size:28px;letter-spacing:2px;border-bottom:2px solid var(--noir);padding-bottom:12px;margin-bottom:20px;}
@@ -109,8 +88,6 @@ html,body{height:100%;background:var(--bg);color:var(--texte);font-family:var(--
 .rbp:hover{background:var(--rouge-vif);}
 .rbn{background:var(--bg3);color:var(--texte-dim);border:2px solid var(--border);}
 .rbn:hover{border-color:var(--noir);color:var(--texte);}
-
-/* ── APP ── */
 #app{display:flex;flex-direction:column;min-height:100vh;max-width:1200px;margin:0 auto;padding:0 16px;}
 header{display:flex;align-items:center;justify-content:space-between;padding:14px 0 12px;border-bottom:3px solid var(--noir);flex-shrink:0;}
 .logo{font-family:var(--titre);font-size:24px;letter-spacing:2px;color:var(--texte-clair);}
@@ -120,10 +97,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .sauv{font-family:var(--mono);font-size:10px;color:var(--texte-dim);}
 .sauv.ok{color:#2a8a2a;}
 .sauv.cours{color:var(--or);}
-
 .main{display:block;flex:1;padding:14px 0;min-height:0;}
-
-/* ── PANNEAU STATS ── */
 .stats-panel{display:none;}
 .stat-bloc{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--noir);}
 .bloc-titre{font-family:var(--titre);font-size:13px;letter-spacing:3px;color:var(--bg2);background:var(--noir);padding:5px 12px;text-transform:uppercase;}
@@ -136,23 +110,18 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .stat-barre.noire{background:var(--noir);}
 .stat-barre.verte{background:#2a8a2a;}
 .stat-barre.or{background:var(--or);}
-
 .combattant-bloc{padding:16px 14px;text-align:center;border-top:3px solid var(--rouge);}
 .comb-nom{font-family:var(--titre);font-size:26px;letter-spacing:1px;color:var(--texte-clair);}
 .comb-surnom{font-family:var(--serif);font-size:13px;font-style:italic;color:var(--rouge);margin-top:2px;}
 .comb-record{font-family:var(--titre);font-size:20px;letter-spacing:2px;margin-top:8px;}
 .comb-record span{color:var(--rouge);}
 .comb-org{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--texte-dim);margin-top:6px;text-transform:uppercase;}
-
 .cash-display{padding:14px;text-align:center;}
 .cash-montant{font-family:var(--titre);font-size:30px;color:var(--texte-clair);}
 .cash-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--texte-dim);text-transform:uppercase;}
-
 .inv-item{font-family:var(--mono);font-size:10px;color:var(--texte-dim);padding:3px 0;border-bottom:1px solid var(--border);}
 .inv-item:last-child{border-bottom:none;}
 .inv-vide{font-family:var(--mono);font-size:10px;color:var(--border2);font-style:italic;}
-
-/* Panneau déroulant */
 .bg-panel-btn{background:none;border:1px solid var(--border);color:var(--texte-dim);font-family:var(--mono);font-size:9px;padding:4px 10px;cursor:pointer;transition:all 0.2s;letter-spacing:1px;text-transform:uppercase;}
 .bg-panel-btn:hover{border-color:var(--rouge-vif);color:var(--rouge);}
 #bg-panel{display:none;background:var(--bg3);border-bottom:1px solid var(--border);padding:12px 0;}
@@ -165,45 +134,34 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .bg-bar-wrap{background:var(--bg4);height:2px;margin-top:1px;margin-bottom:4px;overflow:hidden;}
 .bg-bar{height:100%;background:var(--noir);transition:width 0.4s ease;}
 @media(max-width:700px){.bg-inner{grid-template-columns:1fr 1fr;}}
-
 .btn-prem{width:100%;padding:11px;background:var(--rouge);color:#fff;border:none;font-family:var(--titre);font-size:12px;letter-spacing:2px;cursor:pointer;text-transform:uppercase;transition:background 0.2s;}
 .btn-prem:hover{background:var(--rouge-vif);}
-
-/* ── PANNEAU JEU ── */
 .jeu-panel{flex:1;display:flex;flex-direction:column;min-width:0;}
 #recit{flex:1;background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--rouge);padding:24px;overflow-y:auto;min-height:calc(100svh - 140px);padding-bottom:85px;}
 .entree{margin-bottom:22px;animation:fadeIn 0.35s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 .entree p{font-family:var(--serif);font-size:23px;line-height:1.9;color:var(--texte);margin-bottom:10px;}
 .action-joueur{font-family:var(--mono);font-size:11px;color:var(--texte-dim);padding:8px 14px;border-left:3px solid var(--rouge);margin-bottom:12px;background:var(--bg3);}
-
 .article-presse{background:var(--bg3);border:1px solid var(--border);border-top:4px solid var(--noir);padding:18px 20px;margin:12px 0;}
 .article-header{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--texte-dim);text-transform:uppercase;margin-bottom:8px;}
 .article-titre{font-family:var(--titre);font-size:22px;letter-spacing:1px;color:var(--texte-clair);margin-bottom:8px;}
 .article-corps{font-family:var(--serif);font-size:13px;line-height:1.7;color:var(--texte);}
-
 .interview-bloc{background:var(--noir);color:#fff;padding:18px 20px;margin:12px 0;}
 .interview-header{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-bottom:12px;}
 .interview-q{font-family:var(--mono);font-size:12px;color:var(--rouge);margin-bottom:4px;}
 .interview-r{font-family:var(--serif);font-size:14px;font-style:italic;color:#ddd;margin-bottom:12px;padding-left:12px;border-left:2px solid #444;}
-
 .corner-bloc{background:var(--bg3);border:2px solid var(--noir);padding:16px 20px;margin:12px 0;}
 .corner-header{font-family:var(--titre);font-size:16px;letter-spacing:2px;border-bottom:2px solid var(--noir);padding-bottom:8px;margin-bottom:12px;}
 .corner-blessures{font-family:var(--mono);font-size:11px;color:var(--rouge);margin-bottom:8px;line-height:1.6;}
-.corner-score{font-family:var(--titre);font-size:14px;letter-spacing:1px;color:var(--texte-dim);margin-bottom:8px;}
-.corner-coach{font-family:var(--serif);font-size:13px;font-style:italic;color:var(--texte);}
-
 .maj-stats{font-family:var(--mono);font-size:11px;color:var(--or);padding:6px 10px;background:rgba(184,150,10,0.08);border-left:3px solid var(--or);margin-top:8px;letter-spacing:1px;}
 .sep{border:none;border-top:1px solid var(--border);margin:14px 0;}
 .curseur{display:inline-block;width:2px;height:14px;background:var(--rouge);animation:clign 0.7s infinite;vertical-align:text-bottom;margin-left:2px;}
 @keyframes clign{0%,50%{opacity:1;}51%,100%{opacity:0;}}
-
 .choix-bloc{background:var(--bg3);border:2px solid var(--noir);padding:14px 16px;margin-top:12px;pointer-events:auto;position:relative;z-index:10;}
 .choix-titre{font-family:var(--titre);font-size:13px;letter-spacing:3px;color:var(--texte-dim);margin-bottom:10px;text-transform:uppercase;}
 .choix-btn{display:block;width:100%;text-align:left;background:var(--bg2);border:1px solid var(--border);border-left:3px solid transparent;color:var(--texte);font-family:var(--serif);font-size:18px;padding:13px 14px;margin-bottom:7px;cursor:pointer;transition:all 0.2s;line-height:1.5;pointer-events:auto;position:relative;z-index:10;}
 .choix-btn:hover{background:var(--noir);color:#fff;border-left-color:var(--rouge);}
 .choix-btn:last-child{margin-bottom:0;}
-
 .input-zone{display:flex;gap:8px;flex-shrink:0;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);padding:10px 16px;z-index:100;max-width:1200px;margin:0 auto;box-sizing:border-box;}
 #input-joueur{flex:1;background:var(--bg2);border:1px solid var(--border);border-bottom:2px solid var(--noir);color:var(--texte);font-family:var(--serif);font-size:14px;padding:12px 14px;resize:none;height:52px;outline:none;transition:border-color 0.2s;}
 #input-joueur:focus{border-bottom-color:var(--rouge);}
@@ -211,12 +169,10 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 #btn-envoyer{background:var(--noir);border:none;color:#fff;font-family:var(--titre);font-size:12px;letter-spacing:2px;padding:0 20px;cursor:pointer;transition:background 0.2s;flex-shrink:0;text-transform:uppercase;}
 #btn-envoyer:hover{background:#333;}
 #btn-envoyer:disabled{background:var(--border2);cursor:not-allowed;}
-
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg3);}
 ::-webkit-scrollbar-thumb{background:var(--border2);}
 ::-webkit-scrollbar-thumb:hover{background:var(--rouge);}
-
 @media(max-width:700px){
   #app{padding:0 8px;}
   .main{flex-direction:column;gap:8px;padding:8px 0;}
@@ -235,7 +191,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   <a href="https://recitgames.vercel.app">&#9664; RÉCIT GAMES</a>
 </div>
 
-<!-- INTRO -->
 <div id="ecran-intro">
   <div class="intro-inner">
     <div class="intro-tag">Simulateur de carrière MMA · Roman interactif</div>
@@ -257,29 +212,24 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   </div>
 </div>
 
-<!-- SETUP -->
 <div id="ecran-setup">
   <div class="setup-wrap">
     <div class="setup-entete">
       <div class="setup-titre">Blood & Glory</div>
       <div class="setup-sous">Création du combattant — Récit Games</div>
     </div>
-
     <div class="setup-bloc">
       <label class="setup-label">Prénom</label>
       <input class="setup-input" type="text" id="prenom-input" placeholder="Prénom..." maxlength="20"/>
     </div>
-
     <div class="setup-bloc">
       <label class="setup-label">Nom</label>
       <input class="setup-input" type="text" id="nom-input" placeholder="Nom de famille..." maxlength="20"/>
     </div>
-
     <div class="setup-bloc">
       <label class="setup-label">Surnom de combat</label>
       <input class="setup-input" type="text" id="surnom-input" placeholder="Le surnom que la foule crie..." maxlength="25"/>
     </div>
-
     <div class="setup-bloc">
       <label class="setup-label">Nationalité</label>
       <select class="setup-input" id="nationalite-input" style="cursor:pointer;">
@@ -293,7 +243,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
         <option value="Canadien">Canadien</option>
       </select>
     </div>
-
     <div class="setup-bloc">
       <label class="setup-label">Âge de départ</label>
       <div class="slider-wrap">
@@ -301,7 +250,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
         <span class="slider-val" id="age-val">21</span>
       </div>
     </div>
-
     <div class="setup-bloc">
       <label class="setup-label">Catégorie de poids</label>
       <div class="poids-grid">
@@ -314,7 +262,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
         <div class="poids-carte" onclick="choisirPoids('Lourd','120kg')" id="poids-Lourd"><div class="poids-nom">Lourd</div><div class="poids-kg">120 kg</div></div>
       </div>
     </div>
-
     <div class="setup-bloc">
       <label class="setup-label">Style de combat</label>
       <div class="style-grid">
@@ -340,7 +287,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
         </div>
       </div>
     </div>
-
     <div class="setup-bloc">
       <label class="setup-label">Mode d'interaction en combat</label>
       <div class="mode-grid">
@@ -354,13 +300,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
         </div>
       </div>
     </div>
-
     <button class="btn-setup" id="btn-lancer" onclick="lancerJeu()" disabled>Monter dans la cage</button>
     <p style="font-family:var(--mono);font-size:10px;color:var(--texte-dim);text-align:center;margin-top:12px;letter-spacing:1px;">Progression sauvegardée automatiquement</p>
   </div>
 </div>
 
-<!-- REPRISE -->
 <div id="ecran-reprise">
   <div class="reprise-box">
     <div class="reprise-titre">Blood & Glory</div>
@@ -372,7 +316,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
   <header>
     <div class="logo">Blood <span>&</span> Glory</div>
@@ -383,7 +326,6 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
     </div>
   </header>
 
-  <!-- Panneau déroulant -->
   <div id="bg-panel">
     <div class="bg-inner">
       <div>
@@ -522,7 +464,6 @@ const G = {
 };
 const PAYWALL = 20;
 
-// ── SETUP ──
 function afficherSetup(){
   document.getElementById('ecran-intro').style.display='none';
   document.getElementById('ecran-setup').style.display='block';
@@ -619,7 +560,6 @@ function afficherReprise(save){
   };
 }
 
-// ── SAVE ──
 function sauvegarder(){
   const d={prenom:G.prenom,nom:G.nom,surnom:G.surnom,nationalite:G.nationalite,
     age:G.age,poids:G.poids,style:G.style,mode:G.mode,
@@ -661,7 +601,6 @@ function setSI(e){
   el.textContent=e==='cours'?'↑ sauvegarde...':e==='ok'?'✓ sauvegardé':'● prêt';
 }
 
-// ── UI ──
 function toggleBgPanel(){
   const p=document.getElementById('bg-panel');
   const b=document.querySelector('.bg-panel-btn');
@@ -713,7 +652,6 @@ function miseAJourUI(){
   else{invEl.innerHTML='<div class="inv-vide">Vide</div>';}
 }
 
-// ── SYSTEM PROMPT ──
 function construireSP(){
   const s=G.stats;
   return `=== BLOOD & GLORY — CONTEUR ===
@@ -842,12 +780,23 @@ L'âge compte — après 35 ans, récupération plus lente.
 Une série de défaites peut mener au licenciement de l'organisation.
 L'IA ne protège jamais le joueur.
 
-=== FORMAT CHOIX ===
-${G.mode==='boutons'?`[ CHOIX ]
+=== FORMAT CHOIX — RÈGLE ABSOLUE ET NON NÉGOCIABLE ===
+${G.mode==='boutons'?`Chaque réponse DOIT se terminer par exactement ce bloc, sans exception, sans variation :
+
+[ CHOIX ]
 1 — option de combat précise
 2 — option de combat précise
 3 — option de combat précise
-4 — option de combat précise`:'Termine par une question ouverte sur l\'action du combattant.'}
+4 — option de combat précise
+
+INTERDICTIONS STRICTES :
+- Ne JAMAIS omettre le bloc [ CHOIX ]
+- Ne JAMAIS utiliser autre chose que le tiret long — (—) entre le numéro et le texte
+- Ne JAMAIS numéroter autrement que 1, 2, 3, 4
+- Ne JAMAIS mettre de texte après les 4 choix sauf les balises système
+- Les balises [ Fatigue ] [ Mental ] [ PAYWALL ] vont TOUJOURS après les 4 choix
+- Ne JAMAIS reformater ou modifier cette structure
+- JAMAIS d'indice sur le coup gagnant parmi les 4 options`:'Termine par une question ouverte sur l\'action du combattant. Ne propose PAS de boutons numérotés.'}
 
 === MISES À JOUR STATS ===
 [ Frappe +X ] [ Cardio -X ] [ Réputation +X ] [ Cash +$X ] etc.
@@ -860,17 +809,14 @@ ${G.mode==='boutons'?`[ CHOIX ]
 Quand nbChoix atteint ${PAYWALL} : insère [ PAYWALL ]`.trim();
 }
 
-// ── PARSING ──
 function parserReponse(texte){
   const mises=[];
   texte=texte.replace(/\[\s*Ville\s*:\s*([^\]]+)\s*\]/gi,(_,v)=>{G.ville=v.trim();mises.push(`[→${G.ville}]`);return '';});
   texte=texte.replace(/\[\s*Camp\s*:\s*([^\]]+)\s*\]/gi,(_,v)=>{G.camp=v.trim();mises.push(`[Camp:${G.camp}]`);return '';});
   texte=texte.replace(/\[\s*Fatigue\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{const n=parseInt(v);G.fatigue=Math.max(0,Math.min(100,G.fatigue+(op==='-'?-n:n)));mises.push(`[Fatigue${op}${n}]`);return '';});
   texte=texte.replace(/\[\s*Mental\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{const n=parseInt(v);G.mental=Math.max(0,Math.min(100,G.mental+(op==='-'?-n:n)));mises.push(`[Mental${op}${n}]`);return '';});
-
   const stats=['frappe','jambes','takedown','dtakedown','grappling','soumissions','chin','cardio','rep','medias','condition'];
   const noms={'frappe':'Frappe','jambes':'Jambes','takedown':'Takedown','dtakedown':'Défense TD','grappling':'Grappling','soumissions':'Soumissions','chin':'Chin','cardio':'Cardio','rep':'Réputation','medias':'Médias','condition':'Condition'};
-
   stats.forEach(st=>{
     const regex=new RegExp(`\\[\\s*${noms[st]||st}\\s*([+\\-])(\\d+)\\s*\\]`,'gi');
     texte=texte.replace(regex,(_,op,v)=>{
@@ -878,7 +824,6 @@ function parserReponse(texte){
       mises.push(`[${noms[st]||st}${op}${n}]`);return '';
     });
   });
-
   texte=texte.replace(/\[\s*R[ée]putation\s*([+\-])(\d+)\s*\]/gi,(_,op,v)=>{const n=parseInt(v);G.stats.rep=Math.max(0,Math.min(100,G.stats.rep+(op==='-'?-n:n)));mises.push(`[Rép${op}${n}]`);return '';});
   texte=texte.replace(/\[\s*Cash\s*\+\s*\$?([\d,]+)\s*\]/gi,(_,v)=>{const n=parseInt(v.replace(/,/g,''));G.cash+=n;mises.push(`[Cash +$${n.toLocaleString()}]`);return '';});
   texte=texte.replace(/\[\s*Cash\s*-\s*\$?([\d,]+)\s*\]/gi,(_,v)=>{const n=parseInt(v.replace(/,/g,''));G.cash=Math.max(0,G.cash-n);mises.push(`[Cash -$${n.toLocaleString()}]`);return '';});
@@ -889,13 +834,11 @@ function parserReponse(texte){
   texte=texte.replace(/\[\s*Classement\s*:\s*([^\]]+)\s*\]/gi,(_,c)=>{G.classement=c.trim();mises.push(`[#${c.trim()}]`);return '';});
   texte=texte.replace(/\[\s*([^\]]+?)\s*ajoutée?s?\s*à\s*l['']inventaire\s*\]/gi,(_,it)=>{const item=it.trim();if(!G.inventaire.includes(item))G.inventaire.push(item);mises.push(`[${item}→inv]`);return '';});
   texte=texte.replace(/\[\s*([^\]]+?)\s*retiré[e]?\s*de\s*l['']inventaire\s*\]/gi,(_,it)=>{G.inventaire=G.inventaire.filter(i=>i.toLowerCase()!==it.trim().toLowerCase());mises.push(`[${it.trim()}✗]`);return '';});
-
   texte=texte.replace(/\[\s*ARTICLE\s*\]([\s\S]*?)\[\s*FIN ARTICLE\s*\]/gi,(_,contenu)=>{
     const lignes=contenu.trim().split('\n').filter(l=>l.trim());
     const header=lignes[0]||'';const titre=lignes[1]||'';const corps=lignes.slice(2).join('\n');
     return `<div class="article-presse"><div class="article-header">${header}</div><div class="article-titre">${titre}</div><div class="article-corps">${corps}</div></div>`;
   });
-
   texte=texte.replace(/\[\s*INTERVIEW\s*\]([\s\S]*?)\[\s*FIN INTERVIEW\s*\]/gi,(_,contenu)=>{
     const lignes=contenu.trim().split('\n').filter(l=>l.trim());
     const header=lignes[0]||'';
@@ -906,16 +849,13 @@ function parserReponse(texte){
     });
     htmlInt+='</div>';return htmlInt;
   });
-
   texte=texte.replace(/\[\s*COIN\s*[—\-]\s*ROUND\s*(\d+)\s*\]([\s\S]*?)(?=\[\s*CHOIX\s*\]|$)/i,(match,round,contenu)=>{
     return `<div class="corner-bloc"><div class="corner-header">COIN — ROUND ${round}</div><div class="corner-blessures">${contenu.trim()}</div></div>`;
   });
-
   if(!G.adminMode&&/\[\s*PAYWALL\s*\]/i.test(texte)){
     texte=texte.replace(/\[\s*PAYWALL\s*\]/gi,'');
     setTimeout(declencherPaywall,600);
   }
-
   let htmlChoix='';
   const mChoix=texte.match(/\[\s*CHOIX\s*\]([\s\S]*?)(?=\n\n|\n\[|$)/i);
   if(mChoix){
@@ -928,7 +868,6 @@ function parserReponse(texte){
         '</div>';
     }
   }
-
   miseAJourUI();
   const ps=texte.trim().split(/\n+/).filter(l=>l.trim()).map(l=>{
     if(l.startsWith('<'))return l;
@@ -938,7 +877,6 @@ function parserReponse(texte){
   return ps+su+htmlChoix;
 }
 
-// ── PAYWALL ──
 function declencherPaywall(){
   ajouterRecit(`<div style="border:2px solid var(--rouge);padding:18px 20px;margin:8px 0;">
     <p style="font-family:var(--titre);font-size:16px;letter-spacing:2px;color:var(--rouge);text-transform:uppercase;margin-bottom:8px;">Accès limité</p>
@@ -968,7 +906,6 @@ function saisirCode(){
   }).catch(()=>alert('Erreur de vérification.'));
 }
 
-// ── STREAMING via proxy Vercel ──
 function estEntrainement(msg){
   const m=(msg||'').toLowerCase();
   return m.includes('entraîn')||m.includes('entrainement')||m.includes('training')||m.includes('camp d')||m.includes('semaines d')||m.includes('préparer')||m.includes('prépare')||m.includes('travaille')||m.includes('sparring');
@@ -1046,7 +983,6 @@ async function envoyerPremier(){
   await streamerMessage(msg);
 }
 
-// ── EVENTS ──
 document.getElementById('btn-envoyer').addEventListener('click',()=>{envoyerMessage(document.getElementById('input-joueur').value);});
 document.getElementById('input-joueur').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();envoyerMessage(e.target.value);}});
 document.getElementById('input-joueur').style.display='none';
